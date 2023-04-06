@@ -1,6 +1,8 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{vue,js,ts,jsx,tsx,html}"],
+  content: ["./src/**/*.{vue,js,ts,jsx,tsx,css}"],
   theme: {
     extend: {
       fontFamily: {
@@ -8,6 +10,6 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms"),     require("@tailwindcss/aspect-ratio")],
 }
 
