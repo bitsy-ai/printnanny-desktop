@@ -2,7 +2,7 @@
     <!-- Static sidebar for desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
     <div class="flex h-16 shrink-0 items-center justify-center">
-        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+        <img class="h-16 w-auto p-1" src="@/assets/icon-square.svg" alt="PrintNanny.ai" />
     </div>
     <nav class="mt-8">
         <ul role="list" class="flex flex-col items-center space-y-1">
