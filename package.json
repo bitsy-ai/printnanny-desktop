@@ -19,7 +19,11 @@
     "@tauri-apps/api": "^2.0.0-alpha.1",
     "install": "^0.13.0",
     "npm": "^9.6.4",
-    "vue": "^3.2.45"
+    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store",
+    "vee-validate": "^4.8.4",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
