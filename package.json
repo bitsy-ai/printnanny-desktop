@@ -19,6 +19,7 @@
     "@tauri-apps/api": "^2.0.0-alpha.1",
     "install": "^0.13.0",
     "npm": "^9.6.4",
+    "pinia": "^2.0.34",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store",
     "vee-validate": "^4.8.4",
     "vue": "^3.2.45",
