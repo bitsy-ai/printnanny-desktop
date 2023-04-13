@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import { isAuthenticated } from "../utils/auth";
 
 const routes = [
@@ -12,12 +12,19 @@ const routes = [
     component: () => import("@/components/forms/LoginForm.vue"),
     name: "login",
   },
+  {
+    path: "/settings/advanced",
+    component: () => import("@/components/forms/AdvancedSettingsForm.vue"),
+    name: "settings-advanced",
+  },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
+
+const ANONYMOUS_ROUTES = ["login", "settings-advanced"];
 
 // check login
 router.beforeEach(async (to, _from) => {
@@ -26,7 +33,7 @@ router.beforeEach(async (to, _from) => {
   }
 
   if (!isAuthenticated()) {
-    if (to.name != "login") {
+    if (!ANONYMOUS_ROUTES.includes(to.name as string)) {
       return { name: "login" };
     }
   }

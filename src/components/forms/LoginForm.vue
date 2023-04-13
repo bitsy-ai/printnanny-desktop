@@ -36,7 +36,10 @@ async function onSubmit(values: any) {
   <div
     class="bg-gray-100 h-screen w-full flex flex-1 items-center justify-center"
   >
-    <router-link to="settings-advanced" class="h-8 w-8 self-end ml-2 mb-2">
+    <router-link
+      :to="{ name: 'settings-advanced' }"
+      class="h-8 w-8 self-end ml-2 mb-2"
+    >
       <Cog6ToothIcon class="text-gray-600"></Cog6ToothIcon>
     </router-link>
 
