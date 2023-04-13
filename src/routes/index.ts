@@ -2,8 +2,16 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import { isAuthenticated } from "../utils/auth";
 
 const routes = [
-  { path: "/", component: () => import("@/components/HomeLayout.vue"), name: "home" },
-  { path: "/login", component: () => import("@/components/forms/LoginForm.vue"), name: "login"},
+  {
+    path: "/",
+    component: () => import("@/components/HomeLayout.vue"),
+    name: "home",
+  },
+  {
+    path: "/login",
+    component: () => import("@/components/forms/LoginForm.vue"),
+    name: "login",
+  },
 ];
 
 const router = createRouter({
@@ -17,12 +25,11 @@ router.beforeEach(async (to, _from) => {
     return;
   }
 
-  if (!isAuthenticated()){
-    if (to.name != "login"){
+  if (!isAuthenticated()) {
+    if (to.name != "login") {
       return { name: "login" };
     }
   }
-
 });
 
 export default router;

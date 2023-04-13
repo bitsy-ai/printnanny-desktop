@@ -1,5 +1,5 @@
-function isAuthenticated(): boolean{
-    return false
+function isAuthenticated(): boolean {
+  return false;
 }
 
-export { isAuthenticated }
+export { isAuthenticated };
