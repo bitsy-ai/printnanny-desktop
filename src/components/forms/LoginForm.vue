@@ -6,10 +6,12 @@ import {
   Cog6ToothIcon,
 } from "@heroicons/vue/24/solid";
 import { Field, ErrorMessage, Form } from "vee-validate";
+import { useAccountStore } from "@/stores/account";
 import { ref, reactive } from "vue";
 import * as yup from "yup";
 import type * as apiTypes from "printnanny-api-client";
 
+const account = useAccountStore();
 const router = useRouter();
 const loading = ref(false);
 const state = reactive({
@@ -23,10 +25,10 @@ const schema = yup.object({
 
 async function onSubmit(values: any) {
   state.loading = true;
-  // const res = await account.twoFactorStage1(values.email);
-  // if (res == true) {
-  //   router.push({ name: "login-confirm", params: { email: values.email } });
-  // }
+  const res = await account.twoFactorStage1(values.email);
+  if (res == true) {
+    router.push({ name: "login-confirm", params: { email: values.email } });
+  }
   state.loading = false;
 }
 </script>
