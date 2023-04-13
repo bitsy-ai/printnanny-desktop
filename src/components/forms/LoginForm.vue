@@ -9,7 +9,6 @@ import { Field, ErrorMessage, Form } from "vee-validate";
 import { useAccountStore } from "@/stores/account";
 import { ref, reactive } from "vue";
 import * as yup from "yup";
-import type * as apiTypes from "printnanny-api-client";
 
 const account = useAccountStore();
 const router = useRouter();

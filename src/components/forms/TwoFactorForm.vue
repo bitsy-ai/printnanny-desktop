@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { LockClosedIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { useAccountStore } from "@/stores/account";
 import { Field, ErrorMessage, Form } from "vee-validate";
 import { ref, reactive, onMounted } from "vue";
 import * as yup from "yup";
-import type * as apiTypes from "printnanny-api-client";
 const router = useRouter();
 const loading = ref(false);
 const state = reactive({
@@ -19,6 +18,7 @@ const props = defineProps({
   },
   token: {
     type: String,
+    default: "",
   },
 });
 

@@ -261,12 +261,12 @@ const initialValues = {
   apiUrl: import.meta.env.VITE_PRINTNANNY_API_URL,
 };
 
-function onClose(_event: any) {
+function onClose(_close: boolean) {
   open.value = false;
   router.replace({ name: "home" });
 }
 
-async function onSubmit(values: any) {
+async function onSubmit(_values: any) {
   open.value = false;
 }
 </script>
