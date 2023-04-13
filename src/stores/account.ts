@@ -9,7 +9,7 @@ export const useAccountStore = defineStore({
   id: "accounts",
   // persist option provided by: https://github.com/prazdevs/pinia-plugin-persistedstate
   persist: {
-    storage: localStorage
+    storage: localStorage,
   },
   state: () => ({
     email: undefined as undefined | string,

@@ -1,4 +1,4 @@
 <script setup lang="ts"></script>
 <template>
-<div>dash</div>
+  <div>dash</div>
 </template>

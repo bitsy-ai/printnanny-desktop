@@ -206,7 +206,7 @@
                   <span
                     class="text-sm font-semibold leading-6 text-gray-900"
                     aria-hidden="true"
-                    >{{account.user.first_name || "Profile"}}</span
+                    >{{ account.user.first_name || "Profile" }}</span
                   >
                   <ChevronDownIcon
                     class="ml-2 h-5 w-5 text-gray-400"
@@ -278,10 +278,12 @@ import DesktopNavbar from "@/components/nav/DesktopNavbar.vue";
 import { NAVIGATION_URLS } from "@/data/urls";
 import { useAccountStore } from "../../stores/account";
 
-const userNavigation = [{
-  name: "Logout",
-  href: "/logout"
-}]
+const userNavigation = [
+  {
+    name: "Logout",
+    href: "/logout",
+  },
+];
 const account = useAccountStore();
 const sidebarOpen = ref(false);
 </script>
