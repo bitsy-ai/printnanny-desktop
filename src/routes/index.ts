@@ -13,6 +13,12 @@ const routes = [
     name: "login",
   },
   {
+    path: "/login/confirm/:email/:token?",
+    name: "login-confirm",
+    props: true,
+    component: () => import("@/components/forms/TwoFactorForm.vue"),
+  },
+  {
     path: "/settings/advanced",
     component: () => import("@/components/forms/AdvancedSettingsForm.vue"),
     name: "settings-advanced",
@@ -24,7 +30,7 @@ const router = createRouter({
   routes,
 });
 
-const ANONYMOUS_ROUTES = ["login", "settings-advanced"];
+const ANONYMOUS_ROUTES = ["login", "login-confirm", "settings-advanced"];
 
 // check login
 router.beforeEach(async (to, _from) => {
