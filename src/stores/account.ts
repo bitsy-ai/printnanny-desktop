@@ -9,7 +9,7 @@ export const useAccountStore = defineStore({
   id: "accounts",
   // persist option provided by: https://github.com/prazdevs/pinia-plugin-persistedstate
   persist: {
-    storage: sessionStorage,
+    storage: localStorage,
   },
   state: () => ({
     email: undefined as undefined | string,
@@ -19,11 +19,6 @@ export const useAccountStore = defineStore({
     token: undefined as string | undefined,
     apiConfig: new api.Configuration({
       basePath: import.meta.env.VITE_PRINTNANNY_API_URL,
-      baseOptions: {
-        xsrfCookieName: "csrftoken",
-        xsrfHeaderName: "X-CSRFTOKEN",
-        withCredentials: true,
-      },
     }),
   }),
   getters: {
@@ -37,33 +32,6 @@ export const useAccountStore = defineStore({
     videosApi: (state) => api.VideosApiFactory(state.apiConfig),
   },
   actions: {
-    async submitEmailWaitlist(email: string) {
-      const alerts = useAlertStore();
-      const req: api.EmailWaitlistRequest = { email };
-      const res = await this.accountsApi
-        .accountsEmailWaitlistCreate(req)
-        .catch(handleApiError);
-      console.debug("accountsEmailWaitlistCreate response", res);
-      const alert: UiAlert = {
-        header: "Thanks for signing up!",
-        error: undefined,
-        message: `When beta spots open, we'll send an email to: ${email}`,
-        actions: [],
-      };
-      alerts.push(alert);
-    },
-    async fetchUserNkey(): Promise<api.NatsOrganizationUser | undefined> {
-      const nkeyData = await this.accountsApi
-        .accountsUserNkeyRetrieve()
-        .catch(handleApiError);
-      console.log("Loaded NATS identity", nkeyData);
-      if (nkeyData && nkeyData.data) {
-        this.$patch({
-          nkey: nkeyData.data,
-        });
-        return nkeyData.data;
-      }
-    },
     async fetchUser() {
       const userData = await this.accountsApi
         .accountsUserRetrieve()
@@ -121,34 +89,6 @@ export const useAccountStore = defineStore({
       const user = await this.fetchUser();
       return user;
     },
-    async resetPasswordRequest(request: api.PasswordResetRequest) {
-      const res = await this.accountsApi
-        .accountsPasswordResetCreate(request)
-        .catch(handleApiError);
-      return res;
-    },
-    async resetPasswordConfirm(request: api.PasswordResetConfirmRequest) {
-      const res = await this.accountsApi
-        .accountsPasswordResetConfirmCreate(request)
-        .catch(handleApiError);
-      return res;
-    },
-    async verifyConfirmEmailKey(request: api.VerifyEmailRequest) {
-      const res = await this.accountsApi
-        .accountsRegistrationVerifyEmailCreate(request)
-        .catch(handleApiError);
-      return res;
-    },
-
-    async resendAccountVerificationEmail(
-      request: api.ResendEmailVerificationRequest
-    ) {
-      const res = await this.accountsApi
-        .accountsRegistrationResendEmailCreate(request)
-        .catch(handleApiError);
-      return res;
-    },
-
     async twoFactorStage1(email: string): Promise<boolean> {
       const req = { email } as api.EmailAuthRequest;
       const res = await this.accountsApi
@@ -170,9 +110,6 @@ export const useAccountStore = defineStore({
           basePath: import.meta.env.VITE_PRINTNANNY_API_URL,
           baseOptions: {
             headers: { Authorization: `Bearer ${token}` },
-            xsrfCookieName: "csrftoken",
-            xsrfHeaderName: "X-CSRFTOKEN",
-            withCredentials: true,
           },
         });
 

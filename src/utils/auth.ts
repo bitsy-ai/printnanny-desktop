@@ -1,5 +1,8 @@
+import { useAccountStore } from "../stores/account";
+
 function isAuthenticated(): boolean {
-  return false;
+  const account = useAccountStore();
+  return account.isAuthenticated;
 }
 
 export { isAuthenticated };

@@ -43,7 +43,7 @@ async function onSubmit(values: any) {
   const res = await account.twoFactorStage2(props.email, values.token);
   console.log("Got Response", res);
   state.loading = false;
-  router.push({ name: "devices" });
+  router.push({ name: "home" });
 }
 </script>
 <template>

@@ -195,16 +195,18 @@
             <Menu as="div" class="relative">
               <MenuButton class="-m-1.5 flex items-center p-1.5">
                 <span class="sr-only">Open user menu</span>
+                <!-- TODO
                 <img
                   class="h-8 w-8 rounded-full bg-gray-50"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
                 />
+                -->
                 <span class="hidden lg:flex lg:items-center">
                   <span
-                    class="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                    class="text-sm font-semibold leading-6 text-gray-900"
                     aria-hidden="true"
-                    >Tom Cook</span
+                    >{{ account.user.first_name || "Profile" }}</span
                   >
                   <ChevronDownIcon
                     class="ml-2 h-5 w-5 text-gray-400"
@@ -272,8 +274,16 @@ import {
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
-import DesktopNavbar from "@/components/DesktopNavbar.vue";
-import { NAVIGATION_URLS } from "../data/urls";
+import DesktopNavbar from "@/components/nav/DesktopNavbar.vue";
+import { NAVIGATION_URLS } from "@/data/urls";
+import { useAccountStore } from "../../stores/account";
 
+const userNavigation = [
+  {
+    name: "Logout",
+    href: "/logout",
+  },
+];
+const account = useAccountStore();
 const sidebarOpen = ref(false);
 </script>

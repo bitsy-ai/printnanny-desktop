@@ -4,7 +4,9 @@ import { isAuthenticated } from "../utils/auth";
 const routes = [
   {
     path: "/",
-    component: () => import("@/components/HomeLayout.vue"),
+    components: {
+      default: () => import("@/components/layouts/HomeLayout.vue"),
+    },
     name: "home",
   },
   {
