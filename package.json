@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode=dev",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
@@ -19,7 +19,14 @@
     "@tauri-apps/api": "^2.0.0-alpha.1",
     "install": "^0.13.0",
     "npm": "^9.6.4",
-    "vue": "^3.2.45"
+    "pinia": "^2.0.34",
+    "posthog-js": "^1.53.0",
+    "printnanny-api-client": "^0.132.3",
+    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store",
+    "vee-validate": "^4.8.4",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
