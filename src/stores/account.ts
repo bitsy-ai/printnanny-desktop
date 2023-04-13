@@ -10,6 +10,7 @@ export const useAccountStore = defineStore({
   // persist option provided by: https://github.com/prazdevs/pinia-plugin-persistedstate
   persist: {
     storage: localStorage,
+    paths: ["account"]
   },
   state: () => ({
     email: undefined as undefined | string,
@@ -112,8 +113,6 @@ export const useAccountStore = defineStore({
             headers: { Authorization: `Bearer ${token}` },
           },
         });
-
-        const accountsApi = api.AccountsApiFactory(apiConfig);
         this.$patch({ token, apiConfig });
         await this.fetchUser();
       }

@@ -6,12 +6,25 @@ import {
   Square3Stack3DIcon,
   DocumentPlusIcon,
 } from "@heroicons/vue/24/outline";
+import { useRouter } from "vue-router";
 
 const NAVIGATION_URLS = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "3D Printers", href: "#", icon: CubeTransparentIcon, current: false },
-  { name: "Job Queue", href: "#", icon: Square3Stack3DIcon, current: false },
-  { name: "Flash Device", href: "#", icon: BoltIcon, current: false },
+  { name: "Dashboard", href: "/", icon: HomeIcon, current: () =>{
+    const router = useRouter();
+    return router.currentRoute.value.name == "home"
+  }},
+  { name: "3D Printers", href: "/printers", icon: CubeTransparentIcon, current: () => {
+    const router = useRouter();
+    return router.currentRoute.value.name == "devices"
+  }},
+  { name: "Job Queue", href: "/queue", icon: Square3Stack3DIcon, current: () => {
+    const router = useRouter();
+    return router.currentRoute.value.name == "job-queue"
+  }},
+  { name: "Flash Device", href: "/imager", icon: BoltIcon, current: () => {
+    const router = useRouter();
+    return router.currentRoute.value.name == "imager"
+  }}
   // { name: 'Team', href: '#', icon: UsersIcon, current: false },
 ];
 

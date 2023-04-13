@@ -41,7 +41,6 @@ const account = useAccountStore();
 async function onSubmit(values: any) {
   state.loading = true;
   const res = await account.twoFactorStage2(props.email, values.token);
-  console.log("Got Response", res);
   state.loading = false;
   router.push({ name: "home" });
 }
