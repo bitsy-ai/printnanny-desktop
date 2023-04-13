@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot as="template" :show="open">
-    <Dialog as="div" class="relative z-10" @close="open = false">
+    <Dialog as="div" class="relative z-10" @close="onClose">
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -29,6 +29,7 @@
             leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <Form
+              v-slot="{ meta }"
               :validation-schema="schema"
               :initial-values="initialValues"
               @submit="onSubmit"
@@ -73,9 +74,9 @@
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               />
                               <error-message
-                              class="text-red-500"
-                              name="apiUrl"
-                            ></error-message>
+                                class="text-red-500"
+                                name="apiUrl"
+                              ></error-message>
                             </div>
                           </div>
                           <!--
@@ -209,9 +210,9 @@
                   class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6"
                 >
                   <button
-                    type="button"
+                    type="submit"
+                    :disabled="!meta.valid"
                     class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    @click="open = false"
                   >
                     Save
                   </button>
@@ -220,7 +221,7 @@
                     ref="cancelButtonRef"
                     type="button"
                     class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    @click="open = false"
+                    @click="onClose"
                   >
                     Cancel
                   </button>
@@ -236,6 +237,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { Field, ErrorMessage, Form } from "vee-validate";
 import {
   Dialog,
@@ -248,6 +250,7 @@ import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import * as yup from "yup";
 
 const open = ref(true);
+const router = useRouter();
 
 // define a validation schema
 const schema = yup.object({
@@ -258,7 +261,12 @@ const initialValues = {
   apiUrl: import.meta.env.VITE_PRINTNANNY_API_URL,
 };
 
-debugger;
+function onClose(_event: any) {
+  open.value = false;
+  router.replace({ name: "home" });
+}
 
-async function onSubmit(values: any) {}
+async function onSubmit(values: any) {
+  open.value = false;
+}
 </script>
