@@ -17,9 +17,9 @@
         "all": true,
         "scope": [
           "$APPLOCALDATA",
-          "$APPLOCALDATA/*",
+          "$APPLOCALDATA/**/*",
           "$APPDATA",
-          "$APPDATA/*"
+          "$APPDATA/**/*"
         ]
       },
       "os": {
