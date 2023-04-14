@@ -19,7 +19,7 @@
                 <a
                   :href="item.href"
                   :class="[
-                    item.current
+                    item.current()
                       ? 'bg-gray-800 text-white'
                       : 'text-gray-400 hover:text-white hover:bg-gray-800',
                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
@@ -114,5 +114,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import {
+  Cog6ToothIcon
+} from "@heroicons/vue/24/outline";
 import { NAVIGATION_URLS, HELP_URLS, COMMUNITY_URLS } from "@/data/urls";
 </script>

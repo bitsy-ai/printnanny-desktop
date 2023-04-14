@@ -1,16 +1,11 @@
 import type { UiAlert } from "@/types";
 import { defineStore, acceptHMRUpdate } from "pinia";
 import * as api from "printnanny-api-client";
-import { useAlertStore } from "./alerts";
 import { handleApiError } from "@/utils/api";
 import { posthogIdentify, posthogReset } from "@/utils/posthog";
 
 export const useAccountStore = defineStore({
   id: "accounts",
-  // persist option provided by: https://github.com/prazdevs/pinia-plugin-persistedstate
-  persist: {
-    storage: localStorage,
-  },
   state: () => ({
     email: undefined as undefined | string,
     userId: undefined as undefined | number,
@@ -42,8 +37,9 @@ export const useAccountStore = defineStore({
         console.log("Authenticated as user", userData.data);
         this.$patch({
           user: userData.data,
+          userId: userData.data.id,
         });
-        posthogIdentify(userData.data);
+        // posthogIdentify(userData.data);
         return userData.data;
       }
     },
@@ -112,8 +108,6 @@ export const useAccountStore = defineStore({
             headers: { Authorization: `Bearer ${token}` },
           },
         });
-
-        const accountsApi = api.AccountsApiFactory(apiConfig);
         this.$patch({ token, apiConfig });
         await this.fetchUser();
       }

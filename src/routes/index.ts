@@ -5,9 +5,17 @@ const routes = [
   {
     path: "/",
     components: {
-      default: () => import("@/components/layouts/HomeLayout.vue"),
+      default: () => import("@/components/layouts/HomeLayout.vue")
     },
-    name: "home",
+    children: [
+      {
+        path: "",
+        name: "home",
+        components: {
+          default: import("@/components/views/DashboardView.vue")
+        }
+      }
+    ]
   },
   {
     path: "/login",
@@ -35,13 +43,14 @@ const router = createRouter({
 const ANONYMOUS_ROUTES = ["login", "login-confirm", "settings-advanced"];
 
 // check login
-router.beforeEach(async (to, _from) => {
+router.beforeEach(async (to, from) => {
   if (to.name == "logout") {
     return;
   }
 
   if (!isAuthenticated()) {
     if (!ANONYMOUS_ROUTES.includes(to.name as string)) {
+      console.debug("Account auth is not set, redirecting to login route from:", from);
       return { name: "login" };
     }
   }
