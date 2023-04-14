@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted } from "vue";
 import { useImagerStore } from "../../stores/imager";
 import ChooseImage from "@/components/imager/ChooseImage.vue";
 import CustomizeImage from "@/components/imager/CustomizeImage.vue";
@@ -9,7 +9,9 @@ import FlashImage from "@/components/imager/FlashImage.vue";
 import ProgressBar from "@/components/imager/ProgressBar.vue";
 const store = useImagerStore();
 
-const currentIdx = ref(0);
+onMounted(() => {
+  store.$reset();
+});
 </script>
 <template>
   <!-- imager buttons -->
@@ -43,7 +45,7 @@ const currentIdx = ref(0);
               <span class="sr-only">{{ step.name }}</span>
             </span>
           </template>
-          <template v-else-if="stepIdx == currentIdx">
+          <template v-else-if="stepIdx == store.currentStepIdx">
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
               <div class="h-0.5 w-full bg-gray-200" />
             </div>

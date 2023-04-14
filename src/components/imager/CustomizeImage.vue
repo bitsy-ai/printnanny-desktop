@@ -52,15 +52,14 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useImagerStore } from "../../stores/imager";
 import { Dialog, TransitionChild, TransitionRoot } from "@headlessui/vue";
 //   import BasicSettingsForm from "@/components/forms/BasicSettingsForm.vue";
 
-const router = useRouter();
+const store = useImagerStore();
 
 const formOpen = ref(false);
-const key = "configure-image";
-const active = computed(() => router.currentRoute.value.name == key);
+const active = computed(() => store.currentStepIdx === 1);
 
 function onCancel() {
   formOpen.value = false;

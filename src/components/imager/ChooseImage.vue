@@ -2,12 +2,11 @@
 import { useRouter } from "vue-router";
 import { open } from "@tauri-apps/api/dialog";
 import { useImagerStore } from "@/stores/imager";
+import { truncate } from "@/utils/text";
 
 const store = useImagerStore();
 
-function truncate(str: string): string {
-  return str.slice(0, 10) + "..." + str.slice(str.length - 10, str.length);
-}
+
 function filename(path: string): string {
   const result = path.split("\\");
   if (result !== undefined) {
@@ -28,11 +27,12 @@ async function openFile() {
   })) as string | null;
   if (selected !== null) {
     store.$patch({ selectedImageFile: selected });
+    store.nextStep();
   }
 }
 
 function clearSelection() {
-  store.$patch({ selectedImageFile: null, selectedDisk: null });
+  store.$reset();
 }
 </script>
 <template>
@@ -44,8 +44,8 @@ function clearSelection() {
       >
         Clear Selection
       </button>
-      <p class="text-center text-stone-50 text-sm truncate">
-        {{ truncate(filename(store.selectedImageFile)) }}
+      <p class="mx-4 text-left text-stone-50 text-sm truncate">
+        {{ truncate(filename(store.selectedImageFile), 13) }}
       </p>
     </div>
     <button
