@@ -6,7 +6,6 @@ import { truncate } from "@/utils/text";
 
 const store = useImagerStore();
 
-
 function filename(path: string): string {
   const result = path.split("\\");
   if (result !== undefined) {

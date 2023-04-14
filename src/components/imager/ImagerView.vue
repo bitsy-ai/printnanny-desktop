@@ -12,24 +12,27 @@ const store = useImagerStore();
 onMounted(() => {
   store.$reset();
 });
+
+const components = [ChooseImage, CustomizeImage, SelectDisk, FlashImage];
 </script>
 <template>
   <!-- imager buttons -->
   <div
-    class="h-full grid grid-rows-3 bg-zinc-500 items-center content-center justify-content-center space-y-20"
+    class="h-full grid bg-zinc-500 items-center content-center justify-content-center space-y-4"
   >
     <nav aria-label="Progress">
-      <ol role="list" class="flex items-center mt-6 justify-center ml-4">
+      <ol role="list" class="items-center mt-6 justify-center grid grid-cols-4">
         <li
           v-for="(step, stepIdx) in store.steps"
           :key="step.name"
           :class="[
-            stepIdx !== store.steps.length - 1 ? 'pr-52' : '',
-            'relative',
+            stepIdx !== store.steps.length - 1 ? 'pr-[300px]' : '',
+            'ml-16 relative',
           ]"
         >
           <template v-if="step.complete">
             <div
+              v-if="stepIdx !== store.steps.length - 1"
               class="absolute inset-0 flex items-center justify-center"
               aria-hidden="true"
             >
@@ -46,7 +49,11 @@ onMounted(() => {
             </span>
           </template>
           <template v-else-if="stepIdx == store.currentStepIdx">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div
+              v-if="stepIdx !== store.steps.length - 1"
+              class="absolute inset-0 flex items-center"
+              aria-hidden="true"
+            >
               <div class="h-0.5 w-full bg-gray-200" />
             </div>
             <span
@@ -61,7 +68,11 @@ onMounted(() => {
             </span>
           </template>
           <template v-else>
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div
+              v-if="stepIdx !== store.steps.length - 1"
+              class="absolute inset-0 flex items-center"
+              aria-hidden="true"
+            >
               <div class="h-0.5 w-full bg-gray-200" />
             </div>
             <span
@@ -74,16 +85,17 @@ onMounted(() => {
               <span class="sr-only">{{ step.name }}</span>
             </span>
           </template>
-
-          
         </li>
       </ol>
+      <div
+        class="flex items-center mt-6 justify-center ml-4 grid grid-cols-4"
+      ></div>
     </nav>
     <div class="grid grid-cols-4 self-end">
-      <ChooseImage></ChooseImage>
-      <CustomizeImage></CustomizeImage>
-      <SelectDisk></SelectDisk>
-      <FlashImage></FlashImage>
+      <component
+        :is="components[stepIdx]"
+        v-for="(step, stepIdx) in store.steps"
+      ></component>
     </div>
     <ProgressBar />
   </div>
