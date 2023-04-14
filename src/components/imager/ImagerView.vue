@@ -14,7 +14,7 @@ const currentIdx = ref(0);
 <template>
   <!-- imager buttons -->
   <div
-    class="grid grid-rows-3 bg-zinc-500 items-center content-center justify-content-center"
+    class="h-full grid grid-rows-3 bg-zinc-500 items-center content-center justify-content-center space-y-20"
   >
     <nav aria-label="Progress">
       <ol role="list" class="flex items-center mt-6 justify-center">
@@ -22,7 +22,7 @@ const currentIdx = ref(0);
           v-for="(step, stepIdx) in store.steps"
           :key="step.name"
           :class="[
-            stepIdx !== store.steps.length - 1 ? 'pr-64' : '',
+            stepIdx !== store.steps.length - 1 ? 'pr-56' : '',
             'relative',
           ]"
         >
@@ -48,7 +48,7 @@ const currentIdx = ref(0);
               <div class="h-0.5 w-full bg-gray-200" />
             </div>
             <span
-              class="relative flex h-12 w-12 items-center justify-center rounded-full border-2 border-indigo-400 bg-white"
+              class="relative flex h-12 w-12 items-center justify-center rounded-full border-4 border-indigo-400 bg-white"
               aria-current="step"
             >
               <component
@@ -75,9 +75,7 @@ const currentIdx = ref(0);
         </li>
       </ol>
     </nav>
-    <div
-      class="flex items-center mt-6 justify-items-center grid grid-cols-4 self-end"
-    >
+    <div class="grid grid-cols-4 self-end">
       <ChooseImage></ChooseImage>
       <CustomizeImage></CustomizeImage>
       <SelectDisk></SelectDisk>
