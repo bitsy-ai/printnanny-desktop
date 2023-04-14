@@ -1,34 +1,88 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useImagerStore } from "../../stores/imager";
 import ChooseImage from "@/components/imager/ChooseImage.vue";
+import CustomizeImage from "@/components/imager/CustomizeImage.vue";
+import SelectDisk from "@/components/imager/SelectDisk.vue";
+import FlashImage from "@/components/imager/FlashImage.vue";
 
-const imagerNav = [
-  { name: "Choose an Image", component: ChooseImage },
-  { name: "Select a Disk", component: ChooseImage },
-  { name: "Customize", component: ChooseImage },
-  { name: "Flash", component: ChooseImage },
-];
+import ProgressBar from "@/components/imager/ProgressBar.vue";
+const store = useImagerStore();
 
 const currentIdx = ref(0);
 </script>
 <template>
-  <div class="grid grid-cols-3">
-    <aside class="col-span-1 overflow-y-auto border-r border-gray-200">
-      <!-- Secondary column (hidden on smaller screens) -->
-      <div
-        v-for="(item, idx) in imagerNav"
-        :key="item.name"
-        :class="[
-          currentIdx == idx ? 'bg-gray-300' : 'bg-gray-100',
-          'h-16 w-full px-4 py-6 sm:px-6 lg:px-8 leading-6 font-semibold text-sm text-gray-700 border-r border-l border-b border-gray-300 flex text-center',
-        ]"
-      >
-        <span>{{ idx + 1 }}) </span><span class="flex-1"> {{ item.name }}</span>
-      </div>
-    </aside>
-    <main class="col-span-2">
-      <!-- Main area -->
-      <component :is="imagerNav[currentIdx].component"></component>
-    </main>
+  <!-- imager buttons -->
+  <div
+    class="grid grid-rows-3 bg-zinc-500 items-center content-center justify-content-center"
+  >
+    <nav aria-label="Progress">
+      <ol role="list" class="flex items-center mt-6 justify-center">
+        <li
+          v-for="(step, stepIdx) in store.steps"
+          :key="step.name"
+          :class="[
+            stepIdx !== store.steps.length - 1 ? 'pr-64' : '',
+            'relative',
+          ]"
+        >
+          <template v-if="step.complete">
+            <div
+              class="absolute inset-0 flex items-center justify-center"
+              aria-hidden="true"
+            >
+              <div class="h-0.5 w-full bg-indigo-400" />
+            </div>
+            <span
+              class="relative flex h-12 w-12 items-center justify-center rounded-full bg-indigo-400"
+            >
+              <component
+                :is="step.solidIcon"
+                class="h-8 w-8 text-white"
+              ></component>
+              <span class="sr-only">{{ step.name }}</span>
+            </span>
+          </template>
+          <template v-else-if="stepIdx == currentIdx">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="h-0.5 w-full bg-gray-200" />
+            </div>
+            <span
+              class="relative flex h-12 w-12 items-center justify-center rounded-full border-2 border-indigo-400 bg-white"
+              aria-current="step"
+            >
+              <component
+                :is="step.solidIcon"
+                class="h-8 w-8 text-indigo-400"
+              ></component>
+              <span class="sr-only">{{ step.name }}</span>
+            </span>
+          </template>
+          <template v-else>
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="h-0.5 w-full bg-gray-200" />
+            </div>
+            <span
+              class="group relative flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-300 bg-white border-gray-400"
+            >
+              <component
+                :is="step.solidIcon"
+                class="h-8 w-8 text-gray-400"
+              ></component>
+              <span class="sr-only">{{ step.name }}</span>
+            </span>
+          </template>
+        </li>
+      </ol>
+    </nav>
+    <div
+      class="flex items-center mt-6 justify-items-center grid grid-cols-4 self-end"
+    >
+      <ChooseImage></ChooseImage>
+      <CustomizeImage></CustomizeImage>
+      <SelectDisk></SelectDisk>
+      <FlashImage></FlashImage>
+    </div>
+    <ProgressBar />
   </div>
 </template>

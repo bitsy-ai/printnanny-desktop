@@ -52,7 +52,7 @@ function clearSelection() {
       class="m-auto text-center block mx-4 my-4 h-12 w-48 block bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-600 rounded"
       @click="openFile"
     >
-      Choose a File
+      Flash from file
     </button>
   </div>
 </template>
