@@ -114,8 +114,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  Cog6ToothIcon
-} from "@heroicons/vue/24/outline";
+import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import { NAVIGATION_URLS, HELP_URLS, COMMUNITY_URLS } from "@/data/urls";
 </script>

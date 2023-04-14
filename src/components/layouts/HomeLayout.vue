@@ -246,11 +246,27 @@
         </div>
       </div>
 
-      <main class="py-10">
-        <div class="px-4 sm:px-6 lg:px-8">
-          <!-- Your content -->
-        </div>
-      </main>
+      <RouterView v-slot="{ Component }">
+        <template v-if="Component">
+          <Transition mode="out-in" name="fade">
+            <Suspense>
+              <!-- main content -->
+              <component :is="Component"></component>
+
+              <!-- loading state -->
+              <template #fallback>
+                <div
+                  class="flex flex-1 justify-center items-center align-center min-h-screen flex-col"
+                >
+                  <h2 class="font-semibold tracking-wider text-3xl mb-6">
+                    Loading...
+                  </h2>
+                </div>
+              </template>
+            </Suspense>
+          </Transition>
+        </template>
+      </RouterView>
     </div>
   </div>
 </template>

@@ -5,17 +5,24 @@ const routes = [
   {
     path: "/",
     components: {
-      default: () => import("@/components/layouts/HomeLayout.vue")
+      default: () => import("@/components/layouts/HomeLayout.vue"),
     },
     children: [
       {
         path: "",
         name: "home",
         components: {
-          default: import("@/components/views/DashboardView.vue")
-        }
-      }
-    ]
+          default: () => import("@/components/views/DashboardView.vue"),
+        },
+      },
+      {
+        path: "imager",
+        name: "imager",
+        components: {
+          default: () => import("@/components/imager/ImagerView.vue"),
+        },
+      },
+    ],
   },
   {
     path: "/login",
@@ -50,7 +57,10 @@ router.beforeEach(async (to, from) => {
 
   if (!isAuthenticated()) {
     if (!ANONYMOUS_ROUTES.includes(to.name as string)) {
-      console.debug("Account auth is not set, redirecting to login route from:", from);
+      console.debug(
+        "Account auth is not set, redirecting to login route from:",
+        from
+      );
       return { name: "login" };
     }
   }
