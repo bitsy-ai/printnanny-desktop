@@ -1,6 +1,6 @@
 <template>
   <DialogPanel
-    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-1/2"
+    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-3/4 mx-auto mt-24"
   >
     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div class="sm:flex sm:items-start bg-stone-100 p-2 rounded">
@@ -556,7 +556,7 @@ const schema = yup.object({
     .string()
     .required()
     .matches(/^[a-z0-9-]+$/i)
-    .default('printnanny'),
+    .default("printnanny"),
   enableSSH: yup.bool(),
   saveSettings: yup.bool(),
   username: yup

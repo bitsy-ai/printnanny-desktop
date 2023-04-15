@@ -40,6 +40,11 @@ const routes = [
     component: () => import("@/components/forms/AdvancedSettingsForm.vue"),
     name: "settings-advanced",
   },
+  {
+    path: "/settings/imager",
+    component: () => import("@/components/forms/ImagerSettingsForm.vue"),
+    name: "settings-imager",
+  },
 ];
 
 const router = createRouter({

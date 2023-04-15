@@ -94,7 +94,7 @@ const components = [ChooseImage, CustomizeImage, SelectDisk, FlashImage];
     <div class="grid grid-cols-4 self-end">
       <component
         :is="components[stepIdx]"
-        v-for="(step, stepIdx) in store.steps"
+        v-for="(_step, stepIdx) in store.steps"
       ></component>
     </div>
     <ProgressBar />
