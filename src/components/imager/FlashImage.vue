@@ -26,7 +26,7 @@
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useImagerStore } from "@/stores/imager";
-import { flashImage, writeBootfiles } from "@/utils/imager";
+import { flashImage, writeBootfiles } from "@/utils/imager/imager";
 
 const store = useImagerStore();
 const router = useRouter();

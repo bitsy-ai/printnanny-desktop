@@ -7,11 +7,11 @@ import {
   CrossPlatformDisk,
   ImageWriteProgress,
   ImageWriteProgressInterface,
-} from "../types";
+} from "@/types";
 import { useImagerStore } from "@/stores/imager";
 // import { useSettingsStore } from "@/store/settings";
 import { CloudInitGenerator } from "./cloudInit";
-import { showError } from "./error";
+import { showError } from "@/utils/error";
 
 async function listRemoveableDisks(): Promise<Array<CrossPlatformDisk>> {
   const output = await invoke("list_diskdrive_crossplatform");
