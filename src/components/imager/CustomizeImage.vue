@@ -27,7 +27,7 @@
               leave-from="opacity-100 translate-y-0 sm:scale-100"
               leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <ImageSettingsForm :on-cancel="onCancel" />
+              <ImagerSettingsForm :on-cancel="onCancel" />
             </TransitionChild>
           </div>
         </div>
@@ -39,7 +39,7 @@
 import { computed, ref } from "vue";
 import { useImagerStore } from "../../stores/imager";
 import { Dialog, TransitionChild, TransitionRoot } from "@headlessui/vue";
-import ImageSettingsForm from "@/components/forms/ImageSettingsForm.vue";
+import ImagerSettingsForm from "@/components/forms/ImagerSettingsForm.vue";
 
 const store = useImagerStore();
 

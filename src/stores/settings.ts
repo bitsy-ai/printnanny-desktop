@@ -5,7 +5,7 @@ export const useSettingsStore = defineStore({
   id: "settings",
   persist: true,
   state: () => ({
-    savedFormValues: null as null | CloudInitForm,
+    form: CloudInitGenerator.default(),
   }),
   actions: {
     async saveForm(fieldset: CloudInitForm): Promise<CloudInitForm> {

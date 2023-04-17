@@ -4,7 +4,6 @@ import { showError } from "@/utils/error";
 
 interface CloudInitForm {
   disableSSHPassword: boolean;
-  enableRemoteVideo: boolean;
   enableSSH: boolean;
   enableTelemetry: boolean;
   hostname: string;
@@ -22,7 +21,6 @@ interface CloudInitForm {
 
 class CloudInitGenerator implements CloudInitForm {
   disableSSHPassword: boolean;
-  enableRemoteVideo: boolean;
   enableSSH: boolean;
   enableTelemetry: boolean;
   hostname: string;
@@ -40,7 +38,6 @@ class CloudInitGenerator implements CloudInitForm {
   constructor(args: CloudInitForm) {
     this.sshAuthorizedKeys = args.sshAuthorizedKeys;
     this.disableSSHPassword = args.disableSSHPassword;
-    this.enableRemoteVideo = args.enableRemoteVideo;
     this.enableSSH = args.enableSSH;
     this.enableTelemetry = args.enableTelemetry;
     this.hostname = args.hostname;
@@ -53,6 +50,25 @@ class CloudInitGenerator implements CloudInitForm {
     this.wifiPassword = args.wifiPassword;
     this.wifiSSID = args.wifiSSID;
     this.wifiSSIDHidden = args.wifiSSIDHidden;
+  }
+
+  static default(): CloudInitForm {
+    return {
+      disableSSHPassword: false,
+      enableSSH: true,
+      enableTelemetry: true,
+      hostname: "printnanny",
+      keyboardLayout: "us",
+      timezone: "America/Los_Angeles",
+      username: "pi",
+      wifiSSID: "",
+      wifiCountry: "US",
+      wifiPassword: "",
+      wifiSSIDHidden: false,
+      sshAuthorizedKeys: undefined,
+      saveSettings: true,
+      password: "raspberry",
+    };
   }
 
   static async encryptSensitive(args: CloudInitForm): Promise<CloudInitForm> {

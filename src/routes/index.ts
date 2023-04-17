@@ -25,25 +25,28 @@ const routes = [
     ],
   },
   {
-    path: "/login",
-    component: () => import("@/components/forms/LoginForm.vue"),
-    name: "login",
-  },
-  {
-    path: "/login/confirm/:email/:token?",
-    name: "login-confirm",
-    props: true,
-    component: () => import("@/components/forms/TwoFactorForm.vue"),
-  },
-  {
-    path: "/settings/advanced",
-    component: () => import("@/components/forms/AdvancedSettingsForm.vue"),
-    name: "settings-advanced",
-  },
-  {
-    path: "/settings/imager",
-    component: () => import("@/components/forms/ImagerSettingsForm.vue"),
-    name: "settings-imager",
+    path: "/settings/",
+    components: {
+      default: () => import("@/components/layouts/HomeLayout.vue"),
+    },
+    children: [
+      {
+        path: "advanced/",
+        components: {
+          default: () => import("@/components/views/SettingsView.vue"),
+          FormView: () => import("@/components/forms/AdvancedSettingsForm.vue"),
+        },
+        name: "settings-advanced",
+      },
+      {
+        path: "imager/",
+        components: {
+          default: () => import("@/components/views/SettingsView.vue"),
+          FormView: () => import("@/components/forms/ImagerSettingsForm.vue"),
+        },
+        name: "settings-imager",
+      },
+    ],
   },
 ];
 
