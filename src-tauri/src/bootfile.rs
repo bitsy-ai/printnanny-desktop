@@ -127,8 +127,11 @@ fn get_boot_mountpoint(disk_path: &str) -> Result<DarwinMount, ImagerError> {
                 cmd: format!("plutil -convert json -r -o - -"),
             })?;
         // parse json
-        let diskutil_json = diskutil_info_plist.wait_with_output()?;
-        let mount: DarwinMount = serde_json::from_slice(&diskutil_json.stdout)?;
+        let diskutil_json = diskutil_info_plist
+            .wait_with_output()
+            .map_err(|e| ImagerError::BufferIoError { msg: e.to_string() })?;
+        let mount: DarwinMount = serde_json::from_slice(&diskutil_json.stdout)
+            .map_err(|e| ImagerError::SerdeJson { msg: e.to_string() })?;
         if mount.mountpoint == "" {
             attempts -= 1;
             info!(

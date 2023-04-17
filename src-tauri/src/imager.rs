@@ -136,8 +136,14 @@ pub async fn write_image(
     disk: String,
     _deviceId: String,
 ) -> Result<(), ImagerError> {
-    let image_file = File::open(&image_path)?;
-    let bytes_total = image_file.metadata()?.len();
+    let image_file = File::open(&image_path).map_err(|e| ImagerError::FileOpenError {
+        path: image_path.clone(),
+        msg: e.to_string(),
+    })?;
+    let bytes_total = image_file
+        .metadata()
+        .map_err(|e| ImagerError::BufferIoError { msg: e.to_string() })?
+        .len();
     // ensure disk is unmounted
     unmount_disk_darwin(&disk, bytes_total)?;
 
@@ -151,8 +157,11 @@ pub async fn write_image(
 
     info!("Writing {} to {}", &image_path, &disk);
 
-    let auth = authext_darwin(&disk)?;
-    let external_form = auth.make_external_form()?;
+    let auth = authext_darwin(&disk)
+        .map_err(|e| ImagerError::MacOsSecurityFrameworkError { msg: e.to_string() })?;
+    let external_form = auth
+        .make_external_form()
+        .map_err(|e| ImagerError::MacOsSecurityFrameworkError { msg: e.to_string() })?;
     let external_form_bytes = unsafe {
         std::slice::from_raw_parts(
             external_form.bytes.as_ptr() as *const u8,
@@ -165,7 +174,10 @@ pub async fn write_image(
         socket::SockType::Stream,
         None,
         socket::SockFlag::empty(),
-    )?;
+    )
+    .map_err(|e| ImagerError::UnixSocketError {
+        errno: e.to_string(),
+    })?;
 
     let auth_stdout_fd = unsafe { Stdio::from_raw_fd(sock_a) };
     // let stdout_fd: RawFd = sock_a.into_raw_fd();
@@ -174,7 +186,11 @@ pub async fn write_image(
         .stdin(Stdio::piped())
         .stdout(auth_stdout_fd)
         .args(["-stdoutpipe", "-extauth", "-w", &disk])
-        .spawn()?;
+        .spawn()
+        .map_err(|e| ImagerError::CommandIoError {
+            msg: e.to_string(),
+            cmd: format!("/usr/libexec/authopen -stdoutpipe -extauth -w {}", &disk),
+        })?;
 
     // write AuthorizationExternalForm bytes to stdin, expected by `-extauth` flag
     let mut auth_stdin = child.stdin.unwrap();
@@ -192,7 +208,10 @@ pub async fn write_image(
         &mut [iov],
         Some(&mut cmsg_buffer),
         socket::MsgFlags::empty(),
-    )?;
+    )
+    .map_err(|e| ImagerError::UnixSocketError {
+        errno: e.to_string(),
+    })?;
     let cmsg_fd: i32 = match msg.cmsgs().next() {
         Some(socket::ControlMessageOwned::ScmRights(fds)) => fds[0],
         Some(_) => panic!("Unexpected control message"),
@@ -255,7 +274,7 @@ pub struct WriteImageProgress {
 #[cfg(target_os = "macos")]
 pub fn create_darwin_authorization(
     filename: &str,
-) -> Result<security_framework::authorization::Authorization> {
+) -> Result<security_framework::authorization::Authorization, security_framework::base::Error> {
     let rights = security_framework::authorization::AuthorizationItemSetBuilder::new()
         .add_right(format!("sys.openfile.readwrite.{}", filename))?
         .build();
@@ -270,14 +289,16 @@ pub fn create_darwin_authorization(
 }
 
 #[cfg(target_os = "macos")]
-pub fn authext_darwin(disk: &str) -> Result<security_framework::authorization::Authorization> {
+pub fn authext_darwin(
+    disk: &str,
+) -> Result<security_framework::authorization::Authorization, security_framework::base::Error> {
     // create authorization object
     let auth = create_darwin_authorization(disk)?;
     Ok(auth)
 }
 
 #[cfg(target_os = "macos")]
-pub fn unmount_disk_darwin(disk: &str, bytes_total: u64) -> Result<()> {
+pub fn unmount_disk_darwin(disk: &str, bytes_total: u64) -> Result<(), ImagerError> {
     let payload = WriteImageProgress {
         bytes_written: 0_u64,
         bytes_total,
@@ -289,20 +310,21 @@ pub fn unmount_disk_darwin(disk: &str, bytes_total: u64) -> Result<()> {
     // unmount disk
     let unmount_output = Command::new("/usr/sbin/diskutil")
         .args(["unmountDisk", &disk])
-        .output()?;
+        .output()
+        .map_err(|e| ImagerError::VolumeUnmount {
+            disk: disk.to_string(),
+            msg: e.to_string(),
+        })?;
     match unmount_output.status.success() {
         true => {
             info!("Successfully unmounted disk {}", &disk);
+            Ok(())
         }
-        false => {
-            error!(
-                "Error unmounting disk {}: {}",
-                &disk,
-                String::from_utf8(unmount_output.stderr)?
-            );
-        }
-    };
-    Ok(())
+        false => Err(ImagerError::VolumeUnmount {
+            disk: disk.to_string(),
+            msg: "unknown".to_string(),
+        }),
+    }
 }
 
 #[cfg(target_os = "windows")]
