@@ -420,7 +420,6 @@ import {
   TransitionRoot,
   Dialog,
 } from "@headlessui/vue";
-import { XCircleIcon } from "@heroicons/vue/24/solid";
 import * as yup from "yup";
 import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import { COUNTRY_CODES } from "@/utils/imager/country";

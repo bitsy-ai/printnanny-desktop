@@ -52,17 +52,21 @@
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div class="sm:flex sm:items-start">
                     <div
-                      class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left"
+                      class="mt-3 w-full text-center sm:mt-0 sm:ml-4 sm:text-left space-y-6"
                     >
                       <DialogTitle
                         as="h3"
                         class="text-lg font-medium leading-6 text-gray-900"
-                        >Select removeable USB storage:</DialogTitle
+                        >Select a removeable storage device</DialogTitle
                       >
+
                       <div v-if="store.loading">
-                        <CustomSpinner
-                          text="Scanning for removeable drives..."
-                        />
+                        <CustomSpinner text="Scanning for drives..." />
+                      </div>
+                      <div v-else-if="store.disks.length == 0">
+                        <p class="text-lg font-medium text-red-500">
+                          No removable drives found.
+                        </p>
                       </div>
                       <div v-else class="mt-2">
                         <ul
@@ -93,6 +97,16 @@
                         </ul>
                       </div>
                     </div>
+                    <div class="ml-4 flex-shrink-0 flex">
+                      <button
+                        type="button"
+                        class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        @click="show = false"
+                      >
+                        <span class="sr-only">Dismiss</span>
+                        <XCircleIcon class="h-6 w-6" aria-hidden="true" />
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -109,9 +123,9 @@
                     ref="cancelButtonRef"
                     type="button"
                     class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    @click="show = false"
+                    @click="refresh"
                   >
-                    Back
+                    Refresh
                   </button>
                 </div>
               </DialogPanel>
@@ -126,6 +140,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useImagerStore } from "@/stores/imager";
+import { XCircleIcon } from "@heroicons/vue/24/solid";
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 import type { Alert } from "@/types";
 import {
@@ -142,6 +157,16 @@ const router = useRouter();
 const store = useImagerStore();
 const show = ref(false);
 
+async function refresh() {
+  const disks = await store.listRemoveableDrives();
+  if (disks.length == 0) {
+    const header = "No devices found";
+    const message =
+      "No removable devices (USB, SD Card Reader) detected. \n Try removing and re-inserting the device.";
+    error(header, message);
+  }
+}
+
 function onSelect() {
   show.value = false;
   console.log("Selected target disk:", store.selectedDisk);
@@ -150,13 +175,7 @@ function onSelect() {
 
 async function onClick() {
   show.value = true;
-  const disks = await store.listRemoveableDrives();
-  if (disks.length == 0) {
-    const header = "No devices found";
-    const message =
-      "No removable devices (USB, SD Card Reader) detected. \n Try removing and re-inserting the device.";
-    error(header, message);
-  }
+  await refresh();
 }
 
 function clearSelection() {

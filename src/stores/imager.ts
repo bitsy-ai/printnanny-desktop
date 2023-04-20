@@ -48,7 +48,7 @@ export const useImagerStore = defineStore({
         const parsed = JSON.parse(output as string);
         const disks = parsed.map((d: any) => new CrossPlatformDisk(d));
         console.log("Found removeable disks", disks);
-        this.$patch({ disks });
+        this.$patch({ disks, loading: false });
         return disks;
       }
       this.$patch({ loading: false });
