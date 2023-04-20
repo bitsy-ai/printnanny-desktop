@@ -8,7 +8,7 @@
   >
     <div class="space-y-8 divide-y divide-gray-200">
       <div class="space-y-8 divide-y divide-gray-200">
-        <div class="pt-8">
+        <div class="pt-4">
           <div>
             <h3 class="text-lg font-medium leading-6 text-gray-900">
               Hostname, Authentication & SSH
@@ -73,6 +73,7 @@
                       id="password"
                       :type="passwordFieldType"
                       name="password"
+                      :value="store.form.password"
                       class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -176,7 +177,7 @@
             </div>
           </div>
         </div>
-        <div class="pt-8">
+        <div class="pt-4">
           <div>
             <h3 class="text-lg font-medium leading-6 text-gray-900">
               Wireless LAN
@@ -276,7 +277,7 @@
           </div>
         </div>
 
-        <div class="pt-8">
+        <div class="pt-4">
           <div>
             <h3 class="text-lg font-medium leading-6 text-gray-900">
               Locale Settings
@@ -342,7 +343,7 @@
         </div>
       </div>
 
-      <div class="pt-8">
+      <div class="pt-4">
         <div>
           <h3 class="text-lg font-medium leading-6 text-gray-900">
             Privacy & Video Data Streaming
@@ -411,7 +412,7 @@
   </Form>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRaw } from "vue";
 import {
   DialogPanel,
   DialogTitle,
@@ -429,6 +430,15 @@ import { useSettingsStore } from "@/stores/settings";
 import { configure, useForm, Field, ErrorMessage, Form } from "vee-validate";
 import { CloudInitForm } from "@/utils/cloudInit";
 
+const props = defineProps({
+  onSave: {
+    type: Function,
+    default: (form: CloudInitForm) => {
+      console.log("Closing form");
+    },
+  },
+});
+
 configure({
   validateOnBlur: true,
   validateOnChange: true,
@@ -437,7 +447,8 @@ configure({
 
 const store = useSettingsStore();
 
-const initialValues = store.form;
+const initialValues = toRaw(store.form);
+console.log("Initializing form with values:", initialValues);
 
 const wifiPasswordFieldType = ref("password");
 
@@ -462,6 +473,7 @@ async function onSubmit(values: any) {
   console.log("Form was submitted with values", values);
   const encryptedFormValues = await store.saveForm(values as CloudInitForm);
   console.log("Encrypted values", encryptedFormValues);
+  props.onSave(store.form);
 }
 
 // define a validation schema

@@ -251,7 +251,7 @@
           <Transition mode="out-in" name="fade">
             <Suspense>
               <!-- main content -->
-              <component :is="Component"></component>
+              <component :is="Component" class="mt-16"></component>
 
               <!-- loading state -->
               <template #fallback>
