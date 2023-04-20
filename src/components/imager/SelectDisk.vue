@@ -127,7 +127,7 @@ import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useImagerStore } from "@/stores/imager";
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
-
+import type { Alert } from "@/types";
 import {
   Dialog,
   DialogPanel,
@@ -135,17 +135,12 @@ import {
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
-import CustomSpinner from "../CustomSpinner.vue";
+import CustomSpinner from "@/components/CustomSpinner.vue";
 import { truncate } from "@/utils/text";
-// import { ResetAction } from "@/utils/error";
-// import { UiAlert } from "@/types";
-
+import { error } from "../../utils/error";
 const router = useRouter();
-const key = "select-storage";
 const store = useImagerStore();
 const show = ref(false);
-
-const active = computed(() => router.currentRoute.value.name == key);
 
 function onSelect() {
   show.value = false;
@@ -160,13 +155,7 @@ const onClick = async () => {
     const header = "No devices found";
     const message =
       "No removable devices (USB, SD Card Reader) detected. \n Try removing and re-inserting the device.";
-    const alert = {
-      header,
-      message,
-      actions: [ResetAction],
-      icon: ExclamationTriangleIcon,
-    } as UiAlert;
-    store.showError(alert);
+    error(header, message);
   }
 };
 

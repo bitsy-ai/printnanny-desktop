@@ -11,7 +11,7 @@ import {
 import { useImagerStore } from "@/stores/imager";
 // import { useSettingsStore } from "@/store/settings";
 import { CloudInitGenerator } from "./cloudInit";
-import { showError } from "@/utils/error";
+import { error } from "@/utils/error";
 
 async function listRemoveableDisks(): Promise<Array<CrossPlatformDisk>> {
   const output = await invoke("list_diskdrive_crossplatform");
@@ -39,7 +39,11 @@ async function writeImage(disk: CrossPlatformDisk, imagePath: string) {
     imagePath: imagePath,
     diskPath: disk.path,
     deviceId: disk.deviceId,
-  }).catch(showError);
+  }).catch((e: Error) => {
+    const header = "Image write failed";
+    const msg = `Failed to write ${imagePath} to disk ${disk} with error: \n ${e}`;
+    error(header, msg);
+  });
   console.log(`Finished writing ${imagePath} to ${disk.path}`);
 
   // clean up listener

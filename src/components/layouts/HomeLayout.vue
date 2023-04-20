@@ -22,6 +22,7 @@
       ```
     -->
   <div class="h-full">
+    <StickyAlerts />
     <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog
         as="div"
@@ -280,6 +281,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 import DesktopNavbar from "@/components/nav/DesktopNavbar.vue";
 import { NAVIGATION_URLS } from "@/data/urls";
 import { useAccountStore } from "../../stores/account";
+import StickyAlerts from "@/components/alerts/StickyAlerts.vue";
 
 const userNavigation = [
   {
