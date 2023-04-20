@@ -26,7 +26,7 @@ async function openFile() {
   })) as string | null;
   if (selected !== null) {
     store.$patch({ selectedImageFile: selected });
-    store.nextStep();
+    store.completeStep(0);
   }
 }
 
@@ -49,7 +49,7 @@ function clearSelection() {
     </div>
     <button
       v-else
-      class="m-auto text-center block mx-4 my-4 h-12 w-48 block bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-600 rounded"
+      class="text-center block mx-4 my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
       @click="openFile"
     >
       Flash from file

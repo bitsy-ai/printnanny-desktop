@@ -10,8 +10,8 @@ import {
 export const useImagerStore = defineStore({
   id: "imager",
   state: () => ({
+    selectedDisk: null as null | string,
     selectedImageFile: null as null | string,
-    currentStepIdx: 0,
     steps: [
       {
         name: "Flash from file",
@@ -19,14 +19,14 @@ export const useImagerStore = defineStore({
         solidIcon: PlusSmallIcon,
       },
       {
-        name: "Customize",
-        complete: false,
-        solidIcon: Cog6ToothIcon,
-      },
-      {
         name: "Select Disk",
         complete: false,
         solidIcon: ServerIcon,
+      },
+      {
+        name: "Customize",
+        complete: false,
+        solidIcon: Cog6ToothIcon,
       },
       {
         name: "Flash",
@@ -36,10 +36,9 @@ export const useImagerStore = defineStore({
     ],
   }),
   actions: {
-    nextStep() {
+    completeStep(idx: number) {
       this.$patch((state) => {
-        state.steps[state.currentStepIdx].complete = true;
-        state.currentStepIdx = state.currentStepIdx + 1;
+        state.steps[idx].complete = true;
       });
     },
   },

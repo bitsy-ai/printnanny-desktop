@@ -13,7 +13,7 @@ onMounted(() => {
   store.$reset();
 });
 
-const components = [ChooseImage, CustomizeImage, SelectDisk, FlashImage];
+const components = [ChooseImage, SelectDisk, CustomizeImage, FlashImage];
 </script>
 <template>
   <!-- imager buttons -->
@@ -48,6 +48,7 @@ const components = [ChooseImage, CustomizeImage, SelectDisk, FlashImage];
               <span class="sr-only">{{ step.name }}</span>
             </span>
           </template>
+          <!--
           <template v-else-if="stepIdx == store.currentStepIdx">
             <div
               v-if="stepIdx !== store.steps.length - 1"
@@ -67,6 +68,7 @@ const components = [ChooseImage, CustomizeImage, SelectDisk, FlashImage];
               <span class="sr-only">{{ step.name }}</span>
             </span>
           </template>
+          -->
           <template v-else>
             <div
               v-if="stepIdx !== store.steps.length - 1"

@@ -1,13 +1,5 @@
 <template>
-  <div v-if="!active && store.selectedDisk == null" class="flex-1 h-20">
-    <button
-      disabled
-      class="text-center block mx-4 my-4 h-12 w-48 block bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 rounded disabled:opacity-50"
-    >
-      Choose Disk
-    </button>
-  </div>
-  <div v-else-if="!active && store.selectedDisk !== null" class="flex-1">
+  <div v-if="store.selectedDisk !== null" class="flex-1">
     <p class="text-center text-stone-50 text-sm truncate">
       {{ truncate(store.selectedDisk?.displayHeader()) }}
     </p>
@@ -19,11 +11,6 @@
     </button>
   </div>
   <div v-else class="flex-1">
-    <span
-      v-if="store.selectedDisk !== null"
-      class="text-center text-stone-50 text-sm truncate"
-      >{{ store.selectedDisk?.displayHeader() }}</span
-    >
     <button
       class="text-center block mx-4 my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
       @click="onClick"
