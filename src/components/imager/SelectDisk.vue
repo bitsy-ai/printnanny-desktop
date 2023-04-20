@@ -1,22 +1,25 @@
 <template>
-  <div v-if="store.selectedDisk !== null" class="flex-1">
+  <div class="flex-1">
     <button
+      v-if="store.selectedDisk !== null"
       class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-600 rounded"
       @click="clearSelection"
     >
       Clear selection
     </button>
-    <p class="mx-auto w-48 h-12 text-center text-stone-50 text-sm truncate">
-      {{ truncate(store.selectedDisk?.displayHeader(), 12) }}
-    </p>
-  </div>
-  <div v-else class="flex-1">
     <button
+      v-else
       class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
       @click="onClick"
     >
       {{ store.selectedDisk !== null ? `Clear selection` : "Choose Storage" }}
     </button>
+    <p
+      v-if="store.selectedDisk"
+      class="mx-auto w-48 h-12 text-center text-stone-50 text-sm truncate"
+    >
+      {{ truncate(store.selectedDisk?.displayHeader(), 12) }}
+    </p>
     <TransitionRoot as="template" :show="show">
       <Dialog as="div" class="relative z-10" @close="show = false">
         <TransitionChild
@@ -170,7 +173,7 @@ async function refresh() {
 function onSelect() {
   show.value = false;
   console.log("Selected target disk:", store.selectedDisk);
-  router.push({ name: "flash-image" });
+  store.completeStep(1);
 }
 
 async function onClick() {
@@ -180,6 +183,6 @@ async function onClick() {
 
 function clearSelection() {
   store.$patch({ selectedDisk: null });
-  router.push({ name: "select-image" });
+  store.completeStep(1);
 }
 </script>

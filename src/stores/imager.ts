@@ -59,6 +59,11 @@ export const useImagerStore = defineStore({
         state.steps[idx].complete = true;
       });
     },
+    resetStep(idx: number) {
+      this.$patch((state) => {
+        state.steps[idx].complete = false;
+      });
+    },
   },
 });
 

@@ -27,7 +27,7 @@ const components = [ChooseImage, SelectDisk, CustomizeImage, FlashImage];
           :key="step.name"
           :class="[
             stepIdx !== store.steps.length - 1 ? 'pr-[300px]' : '',
-            'ml-16 relative',
+            'ml-[5.5rem] relative',
           ]"
         >
           <template v-if="step.complete">
