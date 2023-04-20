@@ -35,21 +35,21 @@ function clearSelection() {
 }
 </script>
 <template>
-  <div class="flex h-full content-center items-center justify-items-center">
+  <div class="flex-1">
     <div v-if="store.selectedImageFile" class="flex-1 justify-items-center">
       <button
-        class="text-center block mx-4 my-4 h-12 w-48 block bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-600 rounded"
+        class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-600 rounded"
         @click="clearSelection"
       >
         Clear Selection
       </button>
-      <p class="mx-4 text-left text-stone-50 text-sm truncate">
+      <p class="mx-auto w-48 h-12 text-center text-stone-50 text-sm truncate">
         {{ truncate(filename(store.selectedImageFile), 13) }}
       </p>
     </div>
     <button
       v-else
-      class="text-center block mx-4 my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
+      class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
       @click="openFile"
     >
       Flash from file

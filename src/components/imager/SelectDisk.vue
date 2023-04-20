@@ -1,18 +1,18 @@
 <template>
   <div v-if="store.selectedDisk !== null" class="flex-1">
-    <p class="text-center text-stone-50 text-sm truncate">
-      {{ truncate(store.selectedDisk?.displayHeader()) }}
-    </p>
     <button
-      class="text-center block mx-4 my-4 h-12 w-48 block bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-600 rounded"
+      class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-600 rounded"
       @click="clearSelection"
     >
       Clear selection
     </button>
+    <p class="mx-auto w-48 h-12 text-center text-stone-50 text-sm truncate">
+      {{ truncate(store.selectedDisk?.displayHeader(), 12) }}
+    </p>
   </div>
   <div v-else class="flex-1">
     <button
-      class="text-center block mx-4 my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
+      class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
       @click="onClick"
     >
       {{ store.selectedDisk !== null ? `Clear selection` : "Choose Storage" }}
@@ -73,7 +73,7 @@
                           class="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         >
                           <li
-                            v-for="disk in store.removeableDisks"
+                            v-for="disk in store.disks"
                             :key="disk.displayName"
                             class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600"
                           >
