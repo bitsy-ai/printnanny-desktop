@@ -36,6 +36,21 @@ class ImageWriteProgress {
   }
 }
 
+interface CrossPlatformDiskInterface {
+  bootable: boolean;
+  busProtocol: string;
+  displayName: string;
+  deviceId: string;
+  path: string;
+  size: string;
+  sizePretty: string;
+  isRemoveable: string;
+  partitions: Array<CrossPlatformDisk>;
+  volumeName: string;
+  displayHeader(): string;
+  displayDetail(): string;
+}
+
 class CrossPlatformDisk implements CrossPlatformDiskInterface {
   bootable: boolean;
   busProtocol: string;
