@@ -148,7 +148,7 @@ function onSelect() {
   router.push({ name: "flash-image" });
 }
 
-const onClick = async () => {
+async function onClick() {
   show.value = true;
   const disks = await store.listRemoveableDrives();
   if (disks.length == 0) {
@@ -157,7 +157,7 @@ const onClick = async () => {
       "No removable devices (USB, SD Card Reader) detected. \n Try removing and re-inserting the device.";
     error(header, message);
   }
-};
+}
 
 function clearSelection() {
   store.$patch({ selectedDisk: null });

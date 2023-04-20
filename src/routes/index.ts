@@ -3,6 +3,17 @@ import { isAuthenticated } from "../utils/auth";
 
 const routes = [
   {
+    path: "/login",
+    name: "login",
+    component: () => import("@/components/forms/LoginForm.vue"),
+  },
+  {
+    path: "/login/confirm/:email/:token?",
+    name: "login-confirm",
+    props: true,
+    component: () => import("@/components/forms/TwoFactorForm.vue"),
+  },
+  {
     path: "/",
     components: {
       default: () => import("@/components/layouts/HomeLayout.vue"),

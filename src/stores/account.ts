@@ -6,6 +6,7 @@ import { posthogIdentify, posthogReset } from "@/utils/posthog";
 
 export const useAccountStore = defineStore({
   id: "accounts",
+  persist: true,
   state: () => ({
     email: undefined as undefined | string,
     userId: undefined as undefined | number,

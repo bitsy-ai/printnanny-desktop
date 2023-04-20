@@ -3,6 +3,7 @@ import type { CloudInitForm } from "@/utils/imager/cloudInit";
 import { CloudInitGenerator } from "@/utils/imager/cloudInit";
 export const useSettingsStore = defineStore({
   id: "settings",
+  persist: true,
   state: () => ({
     form: CloudInitGenerator.default(),
   }),
