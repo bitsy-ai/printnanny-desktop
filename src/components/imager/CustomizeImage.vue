@@ -1,6 +1,14 @@
 <template>
   <div class="flex-1">
     <button
+      v-if="store.steps[2].complete"
+      class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
+      @click="onClick"
+    >
+      Customize
+    </button>
+    <button
+      v-else
       class="text-center block mx-auto my-4 h-12 w-48 block bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded"
       @click="onClick"
     >
@@ -45,11 +53,10 @@ import ImagerSettingsForm from "@/components/forms/ImagerSettingsForm.vue";
 const store = useImagerStore();
 
 const formOpen = ref(false);
-const active = computed(() => store.currentStepIdx === 1);
 
 function onFormSave() {
   formOpen.value = false;
-  store.nextStep();
+  store.completeStep(2);
 }
 
 function onClick() {

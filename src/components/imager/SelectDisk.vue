@@ -140,11 +140,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
 import { useImagerStore } from "@/stores/imager";
 import { XCircleIcon } from "@heroicons/vue/24/solid";
-import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 import type { Alert } from "@/types";
 import {
   Dialog,
@@ -156,7 +154,6 @@ import {
 import CustomSpinner from "@/components/CustomSpinner.vue";
 import { truncate } from "@/utils/text";
 import { error } from "../../utils/error";
-const router = useRouter();
 const store = useImagerStore();
 const show = ref(false);
 

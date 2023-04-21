@@ -134,7 +134,7 @@ pub fn write_image(
 pub async fn write_image(
     image_path: String,
     disk: String,
-    _deviceId: String,
+    deviceId: String,
 ) -> Result<(), ImagerError> {
     let image_file = File::open(&image_path).map_err(|e| ImagerError::FileOpenError {
         path: image_path.clone(),
