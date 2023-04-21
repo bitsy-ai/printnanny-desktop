@@ -21,7 +21,8 @@
       <body class="h-full">
       ```
     -->
-  <div>
+  <div class="h-full">
+    <StickyAlerts />
     <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog
         as="div"
@@ -108,22 +109,9 @@
                         </li>
                       </ul>
                     </li>
-                    <!--
-                      <li>
-                        <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
-                        <ul role="list" class="-mx-2 mt-2 space-y-1">
-                          <li v-for="team in teams" :key="team.name">
-                            <a :href="team.href" :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{ team.initial }}</span>
-                              <span class="truncate">{{ team.name }}</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                        -->
                     <li class="mt-auto">
                       <a
-                        href="#"
+                        href="/settings/imager/"
                         class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                       >
                         <Cog6ToothIcon
@@ -145,7 +133,7 @@
     <!-- Static sidebar for desktop -->
     <DesktopNavbar></DesktopNavbar>
 
-    <div class="lg:pl-72">
+    <div class="md:pl-72 h-full">
       <div
         class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8"
       >
@@ -246,11 +234,27 @@
         </div>
       </div>
 
-      <main class="py-10">
-        <div class="px-4 sm:px-6 lg:px-8">
-          <!-- Your content -->
-        </div>
-      </main>
+      <RouterView v-slot="{ Component }">
+        <template v-if="Component">
+          <Transition mode="out-in" name="fade">
+            <Suspense>
+              <!-- main content -->
+              <component :is="Component"></component>
+
+              <!-- loading state -->
+              <template #fallback>
+                <div
+                  class="flex flex-1 justify-center items-center align-center min-h-screen flex-col"
+                >
+                  <h2 class="font-semibold tracking-wider text-3xl mb-6">
+                    Loading...
+                  </h2>
+                </div>
+              </template>
+            </Suspense>
+          </Transition>
+        </template>
+      </RouterView>
     </div>
   </div>
 </template>
@@ -277,6 +281,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 import DesktopNavbar from "@/components/nav/DesktopNavbar.vue";
 import { NAVIGATION_URLS } from "@/data/urls";
 import { useAccountStore } from "../../stores/account";
+import StickyAlerts from "@/components/alerts/StickyAlerts.vue";
 
 const userNavigation = [
   {

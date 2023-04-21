@@ -17,10 +17,22 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2.0.0-alpha.4", features = [] }
 
 [dependencies]
-tauri = { version = "2.0.0-alpha.8", features = ["fs-all", "os-all", "path-all", "shell-open"] }
+argon2 = "0.5.0"                       # Pure Rust implementation of the Argon2 password hashing function
+anyhow = "1"                # Flexible concrete Error type built on std::error::Error
+human_bytes = "0.4"              # Crate to convert bytes into human-readable values
+log = "0.4"                             # A lightweight logging facade for Rust
+once_cell = "1.17"               # Single assignment cells and lazy values.
+tauri = { version = "2.0.0-alpha.8", features = ["dialog-all", "fs-all", "os-all", "path-all", "shell-open"] }
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "next", package = "tauri-plugin-store" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+thiserror = "1"               # derive(Error)
+
+[target.'cfg(target_os = "macos")'.dependencies]
+security-framework = { version = "2.8" }
+
+[target.'cfg(unix)'.dependencies]
+nix = {version = "0.26" }                     # Rust friendly bindings to *nix APIs
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

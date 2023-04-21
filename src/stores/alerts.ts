@@ -6,7 +6,7 @@ import type {
   EmailAlertSettingsRequest,
 } from "printnanny-api-client";
 import { handleApiError } from "@/utils/api";
-import type { UiAlert } from "@/types";
+import type { Alert } from "@/types";
 import { useAccountStore } from "@/stores/account";
 
 export const useAlertStore = defineStore({
@@ -56,7 +56,7 @@ export const useAlertStore = defineStore({
         return emailAlertSettings;
       }
     },
-    push(uialert: UiAlert) {
+    push(uialert: Alert) {
       // show at most 1 alert message with the same header
       const alreadyShown = this.alerts.filter(
         (a) => a.header == uialert.header
@@ -67,42 +67,6 @@ export const useAlertStore = defineStore({
     },
   },
 });
-
-export function success(header: string, message: string) {
-  const store = useAlertStore();
-  const alert = {
-    header,
-    message,
-    icon: CheckIcon,
-    iconClass: "text-emerald-500",
-    actions: [],
-  };
-  store.push(alert);
-}
-
-export function warning(header: string, message: string) {
-  const store = useAlertStore();
-  const alert = {
-    header,
-    message,
-    icon: ExclamationCircleIcon,
-    iconClass: "text-amber-500",
-    actions: [],
-  };
-  store.push(alert);
-}
-
-export function error(header: string, message: string) {
-  const store = useAlertStore();
-  const alert = {
-    header,
-    message,
-    icon: ExclamationCircleIcon,
-    iconClass: "text-red-500",
-    actions: [],
-  };
-  store.push(alert);
-}
 
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useAlertStore, import.meta.hot));

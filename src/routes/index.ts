@@ -3,24 +3,9 @@ import { isAuthenticated } from "../utils/auth";
 
 const routes = [
   {
-    path: "/",
-    components: {
-      default: () => import("@/components/layouts/HomeLayout.vue")
-    },
-    children: [
-      {
-        path: "",
-        name: "home",
-        components: {
-          default: import("@/components/views/DashboardView.vue")
-        }
-      }
-    ]
-  },
-  {
     path: "/login",
-    component: () => import("@/components/forms/LoginForm.vue"),
     name: "login",
+    component: () => import("@/components/forms/LoginForm.vue"),
   },
   {
     path: "/login/confirm/:email/:token?",
@@ -29,9 +14,50 @@ const routes = [
     component: () => import("@/components/forms/TwoFactorForm.vue"),
   },
   {
-    path: "/settings/advanced",
-    component: () => import("@/components/forms/AdvancedSettingsForm.vue"),
-    name: "settings-advanced",
+    path: "/",
+    components: {
+      default: () => import("@/components/layouts/HomeLayout.vue"),
+    },
+    children: [
+      {
+        path: "",
+        name: "home",
+        components: {
+          default: () => import("@/components/views/DashboardView.vue"),
+        },
+      },
+      {
+        path: "imager",
+        name: "imager",
+        components: {
+          default: () => import("@/components/imager/ImagerView.vue"),
+        },
+      },
+    ],
+  },
+  {
+    path: "/settings/",
+    components: {
+      default: () => import("@/components/layouts/HomeLayout.vue"),
+    },
+    children: [
+      {
+        path: "advanced/",
+        components: {
+          default: () => import("@/components/views/SettingsView.vue"),
+          FormView: () => import("@/components/forms/AdvancedSettingsForm.vue"),
+        },
+        name: "settings-advanced",
+      },
+      {
+        path: "imager/",
+        components: {
+          default: () => import("@/components/views/SettingsView.vue"),
+          FormView: () => import("@/components/forms/ImagerSettingsForm.vue"),
+        },
+        name: "settings-imager",
+      },
+    ],
   },
 ];
 
@@ -50,7 +76,10 @@ router.beforeEach(async (to, from) => {
 
   if (!isAuthenticated()) {
     if (!ANONYMOUS_ROUTES.includes(to.name as string)) {
-      console.debug("Account auth is not set, redirecting to login route from:", from);
+      console.debug(
+        "Account auth is not set, redirecting to login route from:",
+        from
+      );
       return { name: "login" };
     }
   }
