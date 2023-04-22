@@ -1,5 +1,5 @@
-import { h, Component, render } from 'preact';
-import htm from 'htm';
+import { h, Component, render } from "preact";
+import htm from "htm";
 
 import type {
   InternalDocSearchHit,

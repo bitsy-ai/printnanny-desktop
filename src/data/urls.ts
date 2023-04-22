@@ -6,6 +6,7 @@ import {
   Square3Stack3DIcon,
   DocumentPlusIcon,
 } from "@heroicons/vue/24/outline";
+import { Cog6ToothIcon } from "@heroicons/vue/24/solid";
 import { useRouter } from "vue-router";
 
 const NAVIGATION_URLS = [
@@ -45,7 +46,18 @@ const NAVIGATION_URLS = [
       return router.currentRoute.value.name == "imager";
     },
   },
-  // { name: 'Team', href: '#', icon: UsersIcon, current: false },
+  {
+    name: "Settings",
+    href: "/settings/imager/",
+    icon: Cog6ToothIcon,
+    current: () => {
+      const router = useRouter();
+      return (
+        router.currentRoute.value.name &&
+        router.currentRoute.value.name.includes("settings")
+      );
+    },
+  },
 ];
 
 const HELP_URLS = [
