@@ -2,12 +2,7 @@
 import { RouterView } from "vue-router";
 import moment from "moment";
 import { useDeviceStore } from "@/stores/devices";
-import {
-  EnvelopeIcon,
-  PhoneIcon,
-  PlusIcon,
-  ExclamationTriangleIcon,
-} from "@heroicons/vue/20/solid";
+import { PlusIcon, ExclamationTriangleIcon } from "@heroicons/vue/20/solid";
 import DeviceActionMenu from "@/components/devices/DeviceActionMenu.vue";
 
 const store = useDeviceStore();
