@@ -40,9 +40,9 @@ onMounted(() => {
 const account = useAccountStore();
 async function onSubmit(values: any) {
   state.loading = true;
-  const res = await account.twoFactorStage2(props.email, values.token);
+  await account.twoFactorStage2(props.email, values.token);
   state.loading = false;
-  router.push({ name: "home" });
+  router.push({ name: "Dashboard" });
 }
 </script>
 <template>

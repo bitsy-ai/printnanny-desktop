@@ -21,14 +21,14 @@ const routes = [
     children: [
       {
         path: "",
-        name: "home",
+        name: "Dashboard",
         components: {
           default: () => import("@/components/views/DashboardView.vue"),
         },
       },
       {
         path: "imager",
-        name: "imager",
+        name: "Flash Device",
         components: {
           default: () => import("@/components/imager/ImagerView.vue"),
         },
@@ -47,7 +47,7 @@ const routes = [
           default: () => import("@/components/views/SettingsView.vue"),
           FormView: () => import("@/components/forms/AdvancedSettingsForm.vue"),
         },
-        name: "settings-advanced",
+        name: "Developer Settings",
       },
       {
         path: "imager/",
@@ -55,7 +55,7 @@ const routes = [
           default: () => import("@/components/views/SettingsView.vue"),
           FormView: () => import("@/components/forms/ImagerSettingsForm.vue"),
         },
-        name: "settings-imager",
+        name: "Customize OS Image",
       },
     ],
   },

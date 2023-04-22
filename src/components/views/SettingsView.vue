@@ -10,13 +10,13 @@ const router = useRouter();
 const navigation = [
   {
     name: "Customize OS Image",
-    link: { name: "settings-imager" },
+    link: { name: "Customize OS Image" },
     icon: ServerIcon,
     key: "imagerSettings",
   },
   {
-    name: "Developer",
-    link: { name: "settings-advanced" },
+    name: "Developer Settings",
+    link: { name: "Developer Settings" },
     icon: CommandLineIcon,
     key: "advancedSettings",
   },

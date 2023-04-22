@@ -263,7 +263,7 @@ const initialValues = {
 
 function onClose(_close: boolean) {
   open.value = false;
-  router.replace({ name: "home" });
+  router.replace({ name: "Dashboard" });
 }
 
 async function onSubmit(_values: any) {
