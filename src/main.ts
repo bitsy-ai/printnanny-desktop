@@ -4,6 +4,7 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import "./styles.css";
 import App from "./App.vue";
 import router from "@/routes";
+import docsearch from "@docsearch/js";
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
