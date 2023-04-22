@@ -38,6 +38,21 @@ const routes = [
     ],
   },
   {
+    path: "/queue",
+    components: {
+      default: () => import("@/components/layouts/HomeLayout.vue"),
+    },
+    children: [
+      {
+        path: "",
+        name: "Job Queue",
+        components: {
+          default: () => import("@/components/views/JobQueueView.vue"),
+        },
+      },
+    ],
+  },
+  {
     path: "/imager",
     components: {
       default: () => import("@/components/layouts/HomeLayout.vue"),
