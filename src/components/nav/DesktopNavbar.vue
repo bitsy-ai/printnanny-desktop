@@ -11,6 +11,8 @@
           alt="PrintNanny.ai"
         />
       </div>
+      <div id="docsearch" class="flex h-16 shrink-0 items-center"></div>
+
       <nav class="flex flex-1 flex-col">
         <ul role="list" class="flex flex-1 flex-col gap-y-7">
           <li>
@@ -114,6 +116,22 @@
   </div>
 </template>
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import { NAVIGATION_URLS, HELP_URLS, COMMUNITY_URLS } from "@/data/urls";
+import { Hit } from "./AlgoliaHit";
+import docsearch from "@docsearch/js";
+import "@docsearch/css";
+
+onMounted(() => {
+  // initialize Algolia docsearch
+  docsearch({
+    container: "#docsearch",
+    appId: import.meta.env.VITE_ALGOLIA_APP_ID,
+    indexName: import.meta.env.VITE_ALGOLIA_INDEX_NAME,
+    // Public Search API key: it is safe to commit it
+    apiKey: import.meta.env.VITE_ALGOLIA_API_KEY,
+    hitComponent: Hit,
+  });
+});
 </script>
