@@ -14,20 +14,28 @@ const routes = [
     component: () => import("@/components/forms/TwoFactorForm.vue"),
   },
   {
-    path: "/",
+    path: "",
     components: {
       default: () => import("@/components/layouts/HomeLayout.vue"),
     },
     children: [
       {
         path: "",
-        name: "Dashboard",
+        name: "3D Printers",
         components: {
-          default: () => import("@/components/views/DashboardView.vue"),
+          default: () => import("@/components/views/PrinterView.vue"),
         },
       },
+    ],
+  },
+  {
+    path: "/imager",
+    components: {
+      default: () => import("@/components/layouts/HomeLayout.vue"),
+    },
+    children: [
       {
-        path: "imager",
+        path: "",
         name: "Flash Device",
         components: {
           default: () => import("@/components/imager/ImagerView.vue"),
