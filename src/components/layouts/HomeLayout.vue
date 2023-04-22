@@ -134,6 +134,22 @@
     <DesktopNavbar></DesktopNavbar>
 
     <div class="md:pl-72 h-full">
+      <main>
+        <!-- Page title & actions -->
+        <div
+          class="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
+        >
+          <div class="flex-1 min-w-0 font-medium text-lg">
+            <router-view name="TopBar">{{
+              router.currentRoute.value.name
+            }}</router-view>
+          </div>
+          <div class="mt-4 flex sm:mt-0 sm:ml-4">
+            <!-- top right section (content-specific action buttons) -->
+            <router-view name="TopRight"> </router-view>
+          </div>
+        </div>
+      </main>
       <RouterView v-slot="{ Component }">
         <template v-if="Component">
           <Transition mode="out-in" name="fade">
@@ -182,7 +198,9 @@ import DesktopNavbar from "@/components/nav/DesktopNavbar.vue";
 import { NAVIGATION_URLS } from "@/data/urls";
 import { useAccountStore } from "../../stores/account";
 import StickyAlerts from "@/components/alerts/StickyAlerts.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const account = useAccountStore();
 const sidebarOpen = ref(false);
 </script>

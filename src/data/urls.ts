@@ -11,17 +11,8 @@ import { useRouter } from "vue-router";
 
 const NAVIGATION_URLS = [
   {
-    name: "Dashboard",
-    href: "/",
-    icon: HomeIcon,
-    current: () => {
-      const router = useRouter();
-      return router.currentRoute.value.name == "home";
-    },
-  },
-  {
     name: "3D Printers",
-    href: "/printers",
+    href: "/",
     icon: CubeTransparentIcon,
     current: () => {
       const router = useRouter();

@@ -14,21 +14,38 @@ const routes = [
     component: () => import("@/components/forms/TwoFactorForm.vue"),
   },
   {
-    path: "/",
+    path: "",
     components: {
       default: () => import("@/components/layouts/HomeLayout.vue"),
     },
     children: [
       {
         path: "",
-        name: "home",
+        name: "3D Printers",
         components: {
-          default: () => import("@/components/views/DashboardView.vue"),
+          default: () => import("@/components/views/PrinterView.vue"),
         },
       },
       {
-        path: "imager",
-        name: "imager",
+        path: "/devices/delete/:id/",
+        name: "device-delete",
+        components: {
+          default: () => import("@/components/devices/DeviceDelete.vue"),
+        },
+        props: { default: true },
+        meta: { title: "Delete Connection" },
+      },
+    ],
+  },
+  {
+    path: "/imager",
+    components: {
+      default: () => import("@/components/layouts/HomeLayout.vue"),
+    },
+    children: [
+      {
+        path: "",
+        name: "Flash Device",
         components: {
           default: () => import("@/components/imager/ImagerView.vue"),
         },
@@ -47,7 +64,7 @@ const routes = [
           default: () => import("@/components/views/SettingsView.vue"),
           FormView: () => import("@/components/forms/AdvancedSettingsForm.vue"),
         },
-        name: "settings-advanced",
+        name: "Developer Settings",
       },
       {
         path: "imager/",
@@ -55,7 +72,7 @@ const routes = [
           default: () => import("@/components/views/SettingsView.vue"),
           FormView: () => import("@/components/forms/ImagerSettingsForm.vue"),
         },
-        name: "settings-imager",
+        name: "Customize OS Image",
       },
     ],
   },
