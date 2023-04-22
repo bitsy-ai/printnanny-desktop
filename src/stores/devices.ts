@@ -3,8 +3,8 @@ import type * as api from "printnanny-api-client";
 import { handleApiError } from "@/utils/api";
 import { useAccountStore } from "./account";
 
-export const useDashboardStore = defineStore({
-  id: "dashboard",
+export const useDeviceStore = defineStore({
+  id: "devices",
   state: () => ({
     pis: [] as Array<api.Pi>,
     loading: false,
@@ -30,5 +30,5 @@ export const useDashboardStore = defineStore({
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useDashboardStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useDeviceStore, import.meta.hot));
 }

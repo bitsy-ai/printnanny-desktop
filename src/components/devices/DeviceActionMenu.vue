@@ -1,5 +1,5 @@
 <template>
-  <Menu as="div" class="relative inline-block text-left">
+  <Menu as="div" class="w-full relative text-left">
     <div>
       <MenuButton
         class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
@@ -155,11 +155,11 @@ import {
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/vue/24/solid";
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
-import { useDashboardStore } from "@/stores/dashboard";
+import { useDeviceStore } from "@/stores/devices";
 import { buildDeviceActions } from "@/utils/device";
 import type { TableActionLink } from "@/types";
 
-const store = useDashboardStore();
+const store = useDeviceStore();
 
 const props = defineProps({
   pi: {

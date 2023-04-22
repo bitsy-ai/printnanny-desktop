@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { useDashboardStore } from "@/stores/dashboard";
+import { useDeviceStore } from "@/stores/devices";
 import { EnvelopeIcon, PhoneIcon, PlusIcon } from "@heroicons/vue/20/solid";
 import DeviceActionMenu from "@/components/devices/DeviceActionMenu.vue";
 
-const store = useDashboardStore();
+const store = useDeviceStore();
 const pis = await store.fetchDevices();
 console.log("Loaded pis:", pis);
 </script>
@@ -44,22 +44,8 @@ console.log("Loaded pis:", pis);
           </dl>
         </div>
         <div>
-          <div class="-mt-px flex divide-x divide-gray-200">
-            <div class="flex w-0 flex-1">
-              <a
-                :href="`mailto:${pi.created_dt}`"
-                class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-              >
-                <EnvelopeIcon
-                  class="h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-                Email
-              </a>
-            </div>
-            <div class="-ml-px flex w-0 flex-1">
-              <DeviceActionMenu :pi="pi" :index="index" />
-            </div>
+          <div class="-mt-px flex divide-x divide-gray-200 items-center">
+            <DeviceActionMenu :pi="pi" :index="index" />
           </div>
         </div>
       </li>

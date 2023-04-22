@@ -26,6 +26,15 @@ const routes = [
           default: () => import("@/components/views/PrinterView.vue"),
         },
       },
+      {
+        path: "/devices/delete/:id/",
+        name: "device-delete",
+        components: {
+          default: () => import("@/components/devices/DeviceDelete.vue"),
+        },
+        props: { default: true },
+        meta: { title: "Delete Connection" },
+      },
     ],
   },
   {
