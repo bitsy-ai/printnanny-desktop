@@ -1,10 +1,10 @@
 [package]
-name = "printnanny-desktop"
-version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
+name = "printnanny"
+version = "0.1.0"
+description = "PrintNanny Desktop App"
+authors = ["Leigh Johnson <leigh@printnanny.ai>"]
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/bitsy-ai/printnanny-desktop"
 edition = "2021"
 
 [lib]

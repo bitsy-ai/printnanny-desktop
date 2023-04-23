@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { internalIpV4 } from "internal-ip";
-import { fileURLToPath, URL } from "url";
+import * as path from 'path';
 
 const mobile =
   process.env.TAURI_PLATFORM === "android" ||
@@ -44,7 +44,7 @@ export default defineConfig(async () => ({
   },
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@": path.resolve(__dirname, './src')
     },
   },
 }));

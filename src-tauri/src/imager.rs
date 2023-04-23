@@ -1,5 +1,5 @@
 use anyhow::Result;
-use log::{error, info};
+use log::{info};
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
@@ -134,7 +134,7 @@ pub fn write_image(
 pub async fn write_image(
     image_path: String,
     disk: String,
-    deviceId: String,
+    _deviceId: String,
 ) -> Result<(), ImagerError> {
     let image_file = File::open(&image_path).map_err(|e| ImagerError::FileOpenError {
         path: image_path.clone(),

@@ -10,11 +10,9 @@ use serde::{Deserialize, Serialize};
 use {
     anyhow::Context,
     log::warn,
-    std::fs::File,
     std::io::Write,
-    std::io::{prelude::*, BufReader},
+    std::io::{prelude::*},
     std::process::Stdio,
-    std::time::Instant,
 };
 
 // Tauri command: list_diskdrives
