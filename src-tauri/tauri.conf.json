@@ -7,8 +7,8 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "printnanny-desktop",
-    "version": "0.0.0"
+    "productName": "PrintNanny.ai",
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -38,6 +38,8 @@
     },
     "bundle": {
       "active": true,
+      "category": "Utilities",
+      "copyright": "2023 Bitsy AI Labs",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -45,6 +47,10 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
+      "macOS": {
+        "minimumSystemVersion": "10.13",
+        "license": "LICENSE"
+      },
       "identifier": "ai.printnanny",
       "targets": "all"
     },
@@ -58,7 +64,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "printnanny-desktop",
+        "title": "PrintNanny.ai",
         "width": 1366,
         "height": 768
       }
