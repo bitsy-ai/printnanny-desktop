@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
-use std::io;
+use serde::{Serialize};
+
 use thiserror::Error;
 
 // user-facing error messages

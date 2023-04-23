@@ -1,4 +1,4 @@
-use std::fmt::format;
+
 
 use crate::error::ImagerError;
 #[cfg(unix)]
@@ -163,7 +163,7 @@ fn _write_bootfile(
     // bail if mountpoint is not mounted or writable
     match mount.writable {
         true => {
-            fs::write(&outpath, contents).map_err(|e| ImagerError::BootfileWrite {
+            fs::write(&outpath, contents).map_err(|_e| ImagerError::BootfileWrite {
                 path: outpath.display().to_string(),
             })?;
             info!("Success! Wrote {}", outpath.display());
