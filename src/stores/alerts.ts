@@ -1,5 +1,4 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { CheckIcon, ExclamationCircleIcon } from "@heroicons/vue/24/solid";
 
 import type {
   EmailAlertSettings,

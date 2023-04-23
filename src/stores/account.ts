@@ -1,8 +1,7 @@
-import type { UiAlert } from "@/types";
 import { defineStore, acceptHMRUpdate } from "pinia";
 import * as api from "printnanny-api-client";
 import { handleApiError } from "@/utils/api";
-import { posthogIdentify, posthogReset } from "@/utils/posthog";
+import { posthogReset } from "@/utils/posthog";
 
 export const useAccountStore = defineStore({
   id: "accounts",

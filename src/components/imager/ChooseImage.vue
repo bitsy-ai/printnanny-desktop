@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
 import { open } from "@tauri-apps/api/dialog";
 import { useImagerStore } from "@/stores/imager";
 import { truncate } from "@/utils/text";

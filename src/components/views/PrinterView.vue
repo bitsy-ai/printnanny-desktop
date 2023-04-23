@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
 import moment from "moment";
 import { useDeviceStore } from "@/stores/devices";
 import { PlusIcon, ExclamationTriangleIcon } from "@heroicons/vue/20/solid";

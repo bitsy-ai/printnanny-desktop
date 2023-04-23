@@ -266,7 +266,7 @@ function onClose(_close: boolean) {
   router.replace({ name: "Dashboard" });
 }
 
-async function onSubmit(_values: any) {
+async function onSubmit(_values: Event) {
   open.value = false;
 }
 </script>

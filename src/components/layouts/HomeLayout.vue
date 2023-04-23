@@ -188,28 +188,16 @@ import { ref } from "vue";
 import {
   Dialog,
   DialogPanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
-import {
-  Bars3Icon,
-  BellIcon,
-  Cog6ToothIcon,
-  XMarkIcon,
-} from "@heroicons/vue/24/outline";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
+import { Cog6ToothIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import DesktopNavbar from "@/components/nav/DesktopNavbar.vue";
 import { NAVIGATION_URLS } from "@/data/urls";
-import { useAccountStore } from "../../stores/account";
 import StickyAlerts from "@/components/alerts/StickyAlerts.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const account = useAccountStore();
 const sidebarOpen = ref(false);
 
 function refresh() {

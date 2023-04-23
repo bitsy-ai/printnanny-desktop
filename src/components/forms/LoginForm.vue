@@ -22,7 +22,7 @@ const schema = yup.object({
   email: yup.string().required().email(),
 });
 
-async function onSubmit(values: any) {
+async function onSubmit(values: Event) {
   state.loading = true;
   const res = await account.twoFactorStage1(values.email);
   if (res == true) {

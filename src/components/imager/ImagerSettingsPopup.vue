@@ -39,36 +39,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { Field, ErrorMessage, Form } from "vee-validate";
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  TransitionChild,
-  TransitionRoot,
-} from "@headlessui/vue";
-import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
-import ImagerSettingsForm from "../forms/ImagerSettingsForm.vue";
-import * as yup from "yup";
+import { Dialog, TransitionChild, TransitionRoot } from "@headlessui/vue";
+import ImagerSettingsForm from "@/forms/ImagerSettingsForm.vue";
 
 const open = ref(true);
 const router = useRouter();
 
-// define a validation schema
-const schema = yup.object({
-  apiUrl: yup.string().required(),
-});
-
-const initialValues = {
-  apiUrl: import.meta.env.VITE_PRINTNANNY_API_URL,
-};
-
 function onClose(_close: boolean) {
   open.value = false;
-  router.replace({ name: "home" });
-}
-
-async function onSubmit(_values: any) {
-  open.value = false;
+  router.replace({ name: "Flash Device" });
 }
 </script>
