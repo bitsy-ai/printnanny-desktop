@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "PrintNanny.ai",
+    "productName": "printnanny",
     "version": "0.1.0"
   },
   "tauri": {
