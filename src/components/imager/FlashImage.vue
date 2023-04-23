@@ -26,7 +26,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useImagerStore } from "@/stores/imager";
-import { writeBootfiles } from "@/utils/imager/imager";
 
 const store = useImagerStore();
 
@@ -47,7 +46,7 @@ async function onClick() {
       `Flashing ${store.selectedImageFile} to ${store.selectedDisk.path}`
     );
     await store.writeImage(store.selectedDisk, store.selectedImageFile);
-    await writeBootfiles(store.selectedDisk);
+    await store.writeBootfiles(store.selectedDisk);
   }
 }
 </script>
