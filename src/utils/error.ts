@@ -1,4 +1,4 @@
-import { AlertAction, Alert } from "@/types";
+import { AlertAction } from "@/types";
 import { useAlertStore } from "@/stores/alerts";
 import { ExclamationCircleIcon, CheckIcon } from "@heroicons/vue/24/outline";
 

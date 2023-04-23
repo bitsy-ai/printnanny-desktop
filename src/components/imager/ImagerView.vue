@@ -97,6 +97,7 @@ const components = [ChooseImage, SelectDisk, CustomizeImage, FlashImage];
       <component
         :is="components[stepIdx]"
         v-for="(_step, stepIdx) in store.steps"
+        :key="stepIdx"
       ></component>
     </div>
     <ProgressBar />

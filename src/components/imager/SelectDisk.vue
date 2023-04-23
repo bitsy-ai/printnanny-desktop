@@ -143,7 +143,6 @@
 import { ref } from "vue";
 import { useImagerStore } from "@/stores/imager";
 import { XCircleIcon } from "@heroicons/vue/24/solid";
-import type { Alert } from "@/types";
 import {
   Dialog,
   DialogPanel,

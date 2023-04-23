@@ -1,4 +1,5 @@
-import { h, Component, render } from "preact";
+import { h } from "preact";
+import type { ReactNode } from "preact";
 import htm from "htm";
 
 import type {
@@ -8,7 +9,7 @@ import type {
 
 interface HitProps {
   hit: InternalDocSearchHit | StoredDocSearchHit;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 // Initialize htm with Preact

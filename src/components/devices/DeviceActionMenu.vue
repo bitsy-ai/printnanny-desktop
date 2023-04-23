@@ -148,16 +148,9 @@ import type { PropType } from "vue";
 import type { Pi, PatchedPiRequest } from "printnanny-api-client";
 
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import {
-  ChevronDownIcon,
-  HeartIcon,
-  TrashIcon,
-  ArrowTopRightOnSquareIcon,
-} from "@heroicons/vue/24/solid";
-import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
+import { ChevronDownIcon, HeartIcon } from "@heroicons/vue/24/solid";
 import { useDeviceStore } from "@/stores/devices";
 import { buildDeviceActions } from "@/utils/device";
-import type { TableActionLink } from "@/types";
 
 const store = useDeviceStore();
 

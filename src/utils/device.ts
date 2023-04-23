@@ -4,7 +4,7 @@ import type { TableActionLink } from "@/types";
 
 export function buildDeviceActions(
   pi: Pi,
-  index: number
+  _index: number
 ): Array<Array<TableActionLink>> {
   const externalLinks = [
     {

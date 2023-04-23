@@ -38,7 +38,7 @@ onMounted(() => {
 });
 
 const account = useAccountStore();
-async function onSubmit(values: any) {
+async function onSubmit(values: Event) {
   state.loading = true;
   await account.twoFactorStage2(props.email, values.token);
   state.loading = false;

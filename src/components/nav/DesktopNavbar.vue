@@ -106,32 +106,17 @@
 </template>
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import { NAVIGATION_URLS, HELP_URLS, COMMUNITY_URLS } from "@/data/urls";
 import { Hit } from "./AlgoliaHit";
 import docsearch from "@docsearch/js";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 import "@docsearch/css";
-import {
-  Dialog,
-  DialogPanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  TransitionChild,
-  TransitionRoot,
-} from "@headlessui/vue";
-import { useAccountStore } from "@/stores/account";
 
-const userNavigation = [
-  {
-    name: "Logout",
-    href: "/logout",
-  },
-];
-
-const account = useAccountStore();
+// const userNavigation = [
+//   {
+//     name: "Logout",
+//     href: "/logout",
+//   },
+// ];
 
 onMounted(() => {
   // initialize Algolia docsearch

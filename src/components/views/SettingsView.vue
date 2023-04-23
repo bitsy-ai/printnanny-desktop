@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import ImagerSettingsForm from "@/components/forms/ImagerSettingsForm.vue";
 import { RouterLink, useRouter } from "vue-router";
 

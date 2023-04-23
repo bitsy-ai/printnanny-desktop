@@ -22,7 +22,7 @@ const schema = yup.object({
   email: yup.string().required().email(),
 });
 
-async function onSubmit(values: any) {
+async function onSubmit(values: Event) {
   state.loading = true;
   const res = await account.twoFactorStage1(values.email);
   if (res == true) {
@@ -36,7 +36,7 @@ async function onSubmit(values: any) {
     class="bg-gray-100 h-screen w-full flex flex-1 items-center justify-center"
   >
     <router-link
-      :to="{ name: 'settings-advanced' }"
+      :to="{ name: 'Developer Settings' }"
       class="h-8 w-8 self-end ml-2 mb-2"
     >
       <Cog6ToothIcon class="text-gray-600"></Cog6ToothIcon>

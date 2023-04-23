@@ -13,6 +13,8 @@ import {
   ImageWriteProgress,
   ImageWriteProgressInterface,
 } from "@/types";
+import { useSettingsStore } from "./settings";
+import { CloudInitGenerator } from "../utils/imager/cloudInit";
 
 export const useImagerStore = defineStore({
   id: "imager",
@@ -64,6 +66,45 @@ export const useImagerStore = defineStore({
       }
       this.$patch({ loading: false });
       return [];
+    },
+    async writeBootFiles(disk: CrossPlatformDisk) {
+      console.log("Writing settings to disk", disk);
+      const settings = useSettingsStore();
+      let progress = new ImageWriteProgress({
+        label: "Customizing image...",
+        percent: 25,
+      });
+      this.$patch({ progress: progress });
+
+      const generator = new CloudInitGenerator(settings.form);
+      let filename = CloudInitGenerator.userDataFilename();
+      await invoke("write_bootfile", {
+        diskPath: disk.path,
+        filename: filename,
+        contents: generator.generateUserData(),
+      }).catch((e: Error) => {
+        error("Error customizing image", e);
+      });
+      console.log(`Success! Wrote ${filename}`);
+      progress = new ImageWriteProgress({
+        label: "Customizing image...",
+        percent: 75,
+      });
+      this.$patch({ progress: progress });
+      filename = CloudInitGenerator.networkDataFilename();
+      await invoke("write_bootfile", {
+        diskPath: disk.path,
+        filename: filename,
+        contents: generator.generateNetworkData(),
+      }).catch((e: Error) => {
+        error("Error customizing image", e);
+      });
+      console.log(`Success! Wrote ${filename}`);
+      progress = new ImageWriteProgress({
+        label: "Customizing image...",
+        percent: 100,
+      });
+      this.$patch({ progress: progress });
     },
     async writeImage(disk: CrossPlatformDisk, imagePath: string) {
       const unlisten = await listen<string>("image_write_progress", (event) => {

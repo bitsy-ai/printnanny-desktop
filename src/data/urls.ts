@@ -2,7 +2,6 @@ import {
   ChatBubbleLeftIcon,
   BoltIcon,
   CubeTransparentIcon,
-  HomeIcon,
   Square3Stack3DIcon,
   DocumentPlusIcon,
 } from "@heroicons/vue/24/outline";

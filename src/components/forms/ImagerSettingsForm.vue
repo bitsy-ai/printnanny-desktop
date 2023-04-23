@@ -397,7 +397,9 @@
       <span v-if="Object.keys(errors).length > 0" class="text-sm text-red-500">
         <p>Please correct the following errors:</p>
         <ol>
-          <li v-for="error in Object.values(errors)">- {{ error }}</li>
+          <li v-for="(error, idx) in Object.values(errors)" :key="idx">
+            - {{ error }}
+          </li>
         </ol>
       </span>
       <div class="flex justify-end">
@@ -413,26 +415,18 @@
 </template>
 <script setup lang="ts">
 import { ref, toRaw } from "vue";
-import {
-  DialogPanel,
-  DialogTitle,
-  TransitionChild,
-  TransitionRoot,
-  Dialog,
-} from "@headlessui/vue";
 import * as yup from "yup";
-import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import { COUNTRY_CODES } from "@/utils/imager/country";
 import { TIMEZONES } from "@/utils/imager/timezone";
 import { KEYBOARD_LAYOUTS } from "@/utils/imager/keyboard";
 import { useSettingsStore } from "@/stores/settings";
-import { configure, useForm, Field, ErrorMessage, Form } from "vee-validate";
+import { configure, Field, ErrorMessage, Form } from "vee-validate";
 import { CloudInitForm } from "@/utils/cloudInit";
 
 const props = defineProps({
   onSave: {
     type: Function,
-    default: (form: CloudInitForm) => {
+    default: (_form: CloudInitForm) => {
       console.log("Closing form");
     },
   },
@@ -468,7 +462,7 @@ function onPasswordShow(value: boolean | undefined) {
   }
 }
 
-async function onSubmit(values: any) {
+async function onSubmit(values: Event) {
   console.log("Form was submitted with values", values);
   const encryptedFormValues = await store.saveForm(values as CloudInitForm);
   console.log("Encrypted values", encryptedFormValues);
