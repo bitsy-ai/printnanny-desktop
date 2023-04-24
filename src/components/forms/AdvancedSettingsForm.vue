@@ -263,7 +263,7 @@ const initialValues = {
 
 function onClose(_close: boolean) {
   open.value = false;
-  router.replace({ name: "Dashboard" });
+  router.replace({ name: "3D Printers" });
 }
 
 async function onSubmit(_values: Event) {
