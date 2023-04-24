@@ -42,7 +42,7 @@ async function onSubmit(values: Event) {
   state.loading = true;
   await account.twoFactorStage2(props.email, values.token);
   state.loading = false;
-  router.push({ name: "Dashboard" });
+  router.push({ name: "3D Printers" });
 }
 </script>
 <template>
